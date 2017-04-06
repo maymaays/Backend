@@ -12,15 +12,14 @@ function goodbye()
 function not_found()
 {
     echo 'Not found this. <br>';
-    echo 'Only `say=hello` or `say=bye` accepted';
+    echo 'Only `?say=hello` or `?say=bye` accepted';
 }
 
 if ($_GET['say'] == "hello") {
     hello();
-} else
-    if ($_GET['say'] == "bye") {
-        goodbye();
-    } else {
-
-    }
+} else if ($_GET['say'] == "bye") {
+    goodbye();
+} else {
+    not_found();
+}
 ?>
