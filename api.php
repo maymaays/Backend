@@ -47,25 +47,61 @@ function close(mysqli $db)
     $db->close();
 }
 
-// --------------------------- run --------------------------- //
+// merge 2 map arr
+function merge_map($main, $arr)
+{
+    $result = array_combine(array_keys($main), array_fill(0, count($main), null));
+    // $i = 0;
+    foreach ($main as $key => $value) {
+        if (is_array($value))
+            $result[$key] = $value;
+        else
+            $result[$key][] = $value;
+    }
 
+    foreach ($main as $key => $value) {
+        $key_exist = array_key_exists($key, $arr);
+        if ($key_exist)
+            $result[$key][] = $arr[$key];
+    }
+    // clean array
+    array_walk($result, create_function('&$v', '$v = (count($v) == 1)? array_pop($v): $v;'));
+    return $result;
+}
+
+
+// --------------------------- run --------------------------- //
 $db = connection();
 
 $result = query($db, "SELECT * FROM test WHERE id=0");
 
-// Object oriented style
-while ($obj = $result->fetch_object()) {
-    printf("id=%s  name=%s  surname=%s<br>", $obj->id, $obj->name, $obj->surname);
-}
+$array = array();
 
-$result->free();
-printf("--------------------<br>");
-
-$result = query($db, "SELECT * FROM test WHERE id=0");
 
 // Procedural style
 while ($row = $result->fetch_assoc()) {
-    printf("id=%s  name=%s  surname=%s<br>", $row['id'], $row['name'], $row['surname']);
+    if (!$row) die("no row result");
+
+    if (!$array)
+        $array = $row;
+    else
+        $array = merge_map($array, $row);
+
+    // print_r($value);
+    // echo "<br>";
+
+    // foreach ($row as $element) {
+    // echo $element;
+    // }
+    // printf("id=%s  name=%s  surname=%s<br>", $row[0], $row[1], $row[2]);
+}
+// print_r($array);
+foreach ($array as $key => $values) {
+    echo "key: " . $key . "[";
+    foreach ($values as $key1 => $value) {
+        echo $key1 . "->" . $value . ", ";
+    }
+    echo "]<br>";
 }
 
 $result->free();
