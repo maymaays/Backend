@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Query</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<body>
+<!-- java script -->
+<script>
+    $(document).ready(function () {
+        $("#sent").click(function () {
+            // 1. url
+            // 2. data(json)
+            // 3. function result (parameter should be data, status, xhr)
+            $.get("data_testing.php", {
+                say: $('#input').val()
+            }, function (data, status, xhr) {
+                $("#1").html("data: " + data + "<br>");
+                $("#2").html("status: " + status + "<br>");
+                // console.log(xhr); // debug
+            }/*, "json"*/).fail(function (data /* xhr */) {
+                $("#1").html("data: " + data.responseText + "<br>");
+                $("#2").html("status: " + data.status + "<br>");
+            })
+        });
+    });
+</script>
+
+<!-- html -->
+<label>
+    <span>say: </span>
+    <input id="input" title="input">
+</label>
+<button id="sent">get result</button>
+<p>
+    <span id="1"></span>
+    <span id="2"></span>
+    <span id="3"></span>
+</p>
+</body>
+</html>
