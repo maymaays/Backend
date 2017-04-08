@@ -13,17 +13,21 @@ function goodbye()
 
 function not_found()
 {
-    echo 'Not found this. Only `?say=hello` or `?say=bye` accepted';
+    echo 'Not found this. Only `hello` or `bye` accepted';
 }
 
-if ($_GET['say'] == "hello") {
-    hello();
-} else if ($_GET['say'] == "bye") {
-    goodbye();
-} else if ($_GET['say']) {
-    not_found();
-    http_response_code(400);
+if (isset($_GET['say'])) {
+    $say = $_GET['say'];
+
+    if ($say == "hello") {
+        hello();
+    } else if ($say == "bye") {
+        goodbye();
+    } else {
+        not_found();
+        http_response_code(400);
+    }
 } else {
-    http_response_code(404);
+    http_response_code(405);
 }
 ?>
