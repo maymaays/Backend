@@ -11,8 +11,7 @@ $host_ssh = "139.59.96.74";
 $local = "127.0.0.1";
 // user
 $user_root = "root";
-// password
-$pass_ssh = "dc647eb65e6711e155375218212b3964";
+// pass
 $pass_db = "bdaf31f7f68f9f12ee893e106579764164e2dcda1a0dd4be";
 // database
 $database = 'HotelManagement';
