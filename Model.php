@@ -27,22 +27,9 @@ class DatabaseModel
         $this->PRODUCTION = $PRODUCTION;
     }
 
-
     public function connection()
     {
-        // IP address
-        $host_ssh = "139.59.96.74";
-        $local = "127.0.0.1";
-        // user
-        $user_root = "root";
-        // password
-        $pass_ssh = "dc647eb65e6711e155375218212b3964";
-        $pass_db = "bdaf31f7f68f9f12ee893e106579764164e2dcda1a0dd4be";
-        // database
-        $database = 'HotelManagement';
-        // port
-        $default_sql_port = 3306;
-
+        include 'constants.php';
         if (!$this->PRODUCTION) {
             // precondition: need to add private/public key for ssh (link: https://github.com/Database-Systems-For-SKE/Planning-Design#important)
             shell_exec("ssh -fNg -L " . $default_sql_port . ":" . $local . ":" . $default_sql_port . " " . $user_root . "@" . $host_ssh . " sleep 60 >> logfile");
