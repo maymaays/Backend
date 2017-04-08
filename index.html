@@ -10,20 +10,45 @@
 <script>
     $(document).ready(function () {
         $("#sent").click(function () {
+            var said = $("#input").val();
+
+            // Shortest way
             // 1. url
             // 2. data(json)
             // 3. function result (parameter should be (optional)data, (optional)status, (optional)xhr)
-            $.get("data_testing.php", {
-                say: $('#input').val() // json get header
-            }, function (data, status) {
-                // if type is json, you can call `data.name` like this easier
-                $("#1").html("data: " + data + "<br>");
+            // $.post("data_testing.php", {
+            //     say: $("#input").val() // json get header
+            // }, function (data, status) {
+            // if type is json, you can call `data.name` like this easier
+            //     $("#1").html("data: " + data + "<br>");
+            //     $("#2").html("status: " + status + "<br>");
+            // console.log(xhr); // debug
+            // }/*, "json"*/).fail(function (data /* xhr */) {
+            //     console.log(data);
+            //     $("#1").html("data: " + data.responseText + "<br>");
+            //     $("#2").html("status: " + data.status + "<br>");
+            // });
+
+
+            // Easiest reading way
+            var request = $.ajax({
+                url: "data_testing.php",
+                type: "GET",
+                data: {"say": said}
+            });
+            // complete
+            request.done(function (response, status, xhr) {
+                $("#1").html("data: " + response + "<br>");
                 $("#2").html("status: " + status + "<br>");
                 // console.log(xhr); // debug
-            }/*, "json"*/).fail(function (data /* xhr */) {
-                $("#1").html("data: " + data.responseText + "<br>");
-                $("#2").html("status: " + data.status + "<br>");
-            })
+            });
+            // failure
+            request.fail(function (xhr, status, error) {
+                $("#1").html("data: " + error + " (" + xhr.status + ")<br>");
+                $("#2").html("status: " + status + "<br>");
+                $("#3").html(xhr.responseText + "<br>");
+                // console.log(xhr); // debug
+            });
         });
     });
 </script>
