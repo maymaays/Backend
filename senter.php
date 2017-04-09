@@ -16,7 +16,7 @@ include 'api/json_formating.php';
 
 if (isset($_GET['query'])) {
     $query = $_GET['query'];
-    $model = new DatabaseModel(false /* true */);
+    $model = new DatabaseModel(true /* false */);
     $result = $model->query($query);
     echo "<pre>" . sqlToJSON($result) . "</pre>";
     $model->close();
