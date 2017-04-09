@@ -6,6 +6,7 @@
  * Time: 4:21 PM
  */
 
+
 // merge 2 map arr
 function merge_map($main, $arr)
 {
@@ -26,4 +27,18 @@ function merge_map($main, $arr)
     // clean array
     array_walk($result, create_function('&$v', '$v = (count($v) == 1)? array_pop($v): $v;'));
     return $result;
+}
+
+function to_array(mysqli_result $result)
+{
+    $array = array();
+    while ($row = $result->fetch_assoc()) {
+        if (!$row) return null;
+
+        if (!$array)
+            $array = $row;
+        else
+            $array = merge_map($array, $row);
+    }
+    return $array;
 }
