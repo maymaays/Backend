@@ -6,29 +6,40 @@
  * Time: 10:08 PM
  */
 
-$test = "key: id[0->0, 1->0, 2->0, 3->0, 4->0, ]
-key: name[0->1, 1->1, 2->1, 3->net, 4->ไทยนะ, ]
-key: surname[0->2, 1->2, 2->2, 3->ten, 4->ก็ไทยไง, ]";
-
 $default_tag = "<pre style=\"word-wrap: break-word; white-space: pre-wrap;\">";
 $default_tag_close = "</pre>";
 
-function toJSON(bool $success, $keys, $arr_values)
+function toJSON(bool $success, array $array = null /* mapping array */)
 {
+    // $array will be like: `[ id: [1, 4, 5], name: ["first", "second"] ]` (Map<String, Object[]> java syntax)
     // real
-    $string = sprintf("{\"success\": \"%s\",", $success ? "true" : "false");
-    
-    // mock
-    return sprintf("{\n\t\"success\": \"%s\",
-\t\"some\":\"thing\",
-\t\"new\":\"thing\",
-\t\"old\":\"thing\"\n}", $success ? "true" : "false");
+    $string = sprintf("{\n\t\"success\": \"%s\"", $success ? "true" : "false");
+    if (isset($array)) {
+        foreach ($array as $key => $values) {
+            $string .= ",\n\t\"" . $key . "\"" . ": [";
+            foreach ($values as $value) {
+                $string .= "\"" . $value . "\",";
+            }
+            $string = substr($string, 0, -1) . "]";
+        }
+    }
+    return $string . "\n}";
 }
 
-
-$x = toJSON(true, array(), array());
-echo $default_tag . $x . $default_tag_close;
-
+/**
+ * @param mysqli_result|bool $result
+ * @return string json of data
+ */
+function sqlToJSON($result)
+{
+    if (is_object($result)) {
+        $array = to_array($result);
+        $result->free();
+        return toJSON(isset($array), $array);
+    } else {
+        return toJSON($result);
+    }
+}
 
 ?>
 
