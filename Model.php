@@ -29,13 +29,13 @@ class DatabaseModel
 
     public function connection()
     {
-        include 'constants.php';
+        $ini_array = parse_ini_file("constants.ini");
         if (!$this->PRODUCTION) {
             // precondition: need to add private/public key for ssh (link: https://github.com/Database-Systems-For-SKE/Planning-Design#important)
-            shell_exec("ssh -fNg -L " . $default_sql_port . ":" . $local . ":" . $default_sql_port . " " . $user_root . "@" . $host_ssh . " sleep 60 >> logfile");
+            shell_exec("ssh -fNg -L " . $ini_array['default_sql_port'] . ":" . $ini_array['local_host'] . ":" . $ini_array['default_sql_port'] . " " . $ini_array['root_user'] . "@" . $ini_array['ssh_host'] . " sleep 60 >> logfile");
         }
 
-        $this->database = mysqli_connect($local, $user_root, $pass_db, $database);
+        $this->database = mysqli_connect($ini_array['local_host'], $ini_array['root_user'], $ini_array['database_password'], $ini_array['database_name']);
         if (mysqli_connect_errno()) die("to connect to MySQL: " . mysqli_connect_error());
         if (!isset($this->database)) die("Not database created.");
     }
