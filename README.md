@@ -5,10 +5,13 @@ Using `php` and hand to wrote it. I don't use any external library in this proje
 You need to fixed database connection `model/Model.php` first.
 
 # Explanation
-1. [api](api) folder - contains some `useful` method and `json parser`
+1. [api](api) folder
+    - method_api.php - contains *useful* method
+    - json_parser.php - contains parse `query result` to `json`
+    - query_api.php - contains provide query method
 2. [model](model) folder - contains `database` connection
 3. [test](test) folder - contains example usage, how to write the frontend and more...
-4. main php is name: [senter.php](senter.php)
+4. main php is name: [senter.php](senter.php) @Deprecated because security problem
 
 # To connection (On develop new secure)
 > deprecated for security problem.
