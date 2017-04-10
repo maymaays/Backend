@@ -55,15 +55,12 @@ class DatabaseModel
         if (!isset($this->database)) {
             $this->connection();
         }
-        // still not exist, die
-        if (!isset($this->database)) {
-            die("Not database created.");
-        }
+
         mysqli_set_charset($this->database, 'utf8');
         if ($result = $this->database->query($q)) {
             return $result;
         } else
-            die("Query Error.");
+            die($this->database->error);
     }
 
     // call when finish only
