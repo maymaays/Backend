@@ -63,6 +63,16 @@ class DatabaseModel
             die($this->database->error);
     }
 
+    /**
+     * query and return result as json format
+     * @param string $q query
+     * @return string json file
+     */
+    public function queryJSON(string $q)
+    {
+        return sqlToJSON($this->query($q));
+    }
+
     // call when finish only
     function close()
     {
