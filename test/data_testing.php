@@ -16,6 +16,8 @@ function not_found()
     echo 'Not found this. Only `hello` or `bye` accepted';
 }
 
+echo $_SERVER['SERVER_ADDR'];
+
 if (
     isset($_SERVER['REMOTE_ADDR']) AND ($_SERVER['REMOTE_ADDR'] !== $_SERVER['SERVER_ADDR'])
 ) {
