@@ -5,6 +5,7 @@
  * Date: 4/10/2017 AD
  * Time: 10:15 PM
  */
+include $_SERVER['DOCUMENT_ROOT'] . '/model/Model.php';
 
 function connect()
 {
@@ -21,7 +22,7 @@ function connect()
 function selectAll($table, $condition = null)
 {
     if (isset($condition))
-        return connect()->queryJSON("SELECT * FROM " . $table . " " . $condition);
+        return addPreTag(connect()->queryJSON("SELECT * FROM " . $table . " WHERE " . $condition));
     else
-        return connect()->queryJSON("SELECT * FROM " . $table);
+        return addPreTag(connect()->queryJSON("SELECT * FROM " . $table));
 }
