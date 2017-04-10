@@ -18,13 +18,6 @@ function not_found()
 
 print_r($_SERVER);
 
-if (
-    isset($_SERVER['REMOTE_ADDR']) AND ($_SERVER['REMOTE_ADDR'] !== $_SERVER['SERVER_ADDR'])
-) {
-    die('Access Denied, Your IP:' . $_SERVER['REMOTE_ADDR']);
-}
-
-
 if (isset($_GET['say'])) {
     $say = $_GET['say'];
 
