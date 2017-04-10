@@ -14,14 +14,22 @@ include 'api/json_formating.php';
 // $delete = "DELETE FROM `test` WHERE name='new'";
 // $update = "UPDATE test SET surname='new_sur' WHERE name='new'";
 
-print_r($_SERVER);
+// print_r($_SERVER);
 
 if (isset($_GET['query'])) {
     $query = $_GET['query'];
-    $model = new DatabaseModel(true /* false */);
+    if (strpos($query, "DELETE") === true or strpos($query, "UPDATE") === true or strpos($query, "INSERT") === true) {
+        die("Cannot `insert`, `delete`, `update` query");
+    }
+    
+    $model = new DatabaseModel(false /* true */);
     $result = $model->query($query);
     echo "<pre>" . sqlToJSON($result) . "</pre>";
     $model->close();
+} else {
+    http_response_code(400);
 }
+
+// http response code: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 
 // example: http://localhost:63342/ProjectTest/senter.php?_ijt=9u8f5l2hi5mege5utue6pb8jk6&query=SELECT%20*%20FROM%20test%20WHERE%20id=0 (localhost)
