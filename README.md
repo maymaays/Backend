@@ -11,8 +11,12 @@ You need to fixed database connection `model/Model.php` first.
 4. main php is name: [senter.php](senter.php)
 
 # To connection
+> deprecated for security problem.
+
 the [senter.php](senter.php) using only `GET` method which parameter `json` only,   <p>
 This will receive sql query -> query in database -> sent result back in `json` format
+------
+Still work on new one.
 
 # json format
 
@@ -27,9 +31,10 @@ This will receive sql query -> query in database -> sent result back in `json` f
 ```json
 {
     "success": "true|false", 
-    "key": "value" // (optional) have when SELECT / SHOW / DESCRIBE / EXPLAIN only
+    "key": "value" 
 }
 ```
+**Note**: `key/value` will appear iff SELECT / SHOW / DESCRIBE / EXPLAIN was executed.
 
 # Example
 In [test/](test) folder
