@@ -13,6 +13,13 @@ include 'api/json_formating.php';
 // $insert = "INSERT INTO test (id, name, surname) VALUES (0, 'new', 'sur')";
 // $delete = "DELETE FROM `test` WHERE name='new'";
 // $update = "UPDATE test SET surname='new_sur' WHERE name='new'";
+echo $_SERVER['REMOTE_ADDR'];
+
+if (
+    isset($_SERVER['REMOTE_ADDR']) AND ($_SERVER['REMOTE_ADDR'] !== $_SERVER['SERVER_ADDR'])
+) {
+    die('Access Denied, Your IP:' . $_SERVER['REMOTE_ADDR']);
+}
 
 if (isset($_GET['query'])) {
     $query = $_GET['query'];
