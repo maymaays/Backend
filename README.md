@@ -15,7 +15,9 @@ You need to fixed database connection `model/Model.php` first.
 
 the [senter.php](senter.php) using only `GET` method which parameter `json` only,   <p>
 This will receive sql query -> query in database -> sent result back in `json` format
+
 ------
+
 Still work on new one.
 
 # json format
@@ -23,7 +25,10 @@ Still work on new one.
 ### Input
 ```json
 {
-    "query": "SHOW TABLES"
+    "action":"select|insert|update|delete",
+    "table":"value",
+    "condition":"id=0|name=someone|...",
+    "auth":"NOT IMPLEMENT YET"
 }
 ```
 
@@ -31,10 +36,10 @@ Still work on new one.
 ```json
 {
     "success": "true|false", 
-    "key": "value" 
+    "key": "value"
 }
 ```
-**Note**: `key/value` will appear iff SELECT / SHOW / DESCRIBE / EXPLAIN was executed.
+**Note**: `key/value` will appear iff SELECT / SHOW / DESCRIBE / EXPLAIN was executed (might more than 1).
 
 # Example
 In [test/](test) folder
