@@ -13,7 +13,7 @@ You need to fixed database connection `model/Model.php` first.
 3. [test](test) folder - contains example usage, how to write the frontend and more...
 4. main php is name: [senter.php](senter.php) @Deprecated because security problem
 
-# To connection (On develop new secure)
+# To connection (On develop new security)
 > deprecated for security problem.
 
 the [senter.php](senter.php) using only `GET` method which parameter `json` only,   <p>
@@ -25,7 +25,7 @@ Still work on new one.
 
 # json format
 
-### Input (On develop new secure)
+### Input (On develop for new security)
 ```json
 {
     "action":"select|insert|update|delete",
@@ -48,3 +48,6 @@ Still work on new one.
 In [test/](test) folder
 1. [index.html](test/index.html) - example frontend usage
 2. [data_testing.php](test/data_testing.php) - example http `GET` method
+
+# Credit
+- reader markdown in `index.html` by `display-markdown` ([link](https://github.com/sawmac/display-markdown))
