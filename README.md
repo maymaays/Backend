@@ -10,7 +10,7 @@ You need to fixed database connection `model/Model.php` first.
 3. [test](test) folder - contains example usage, how to write the frontend and more...
 4. main php is name: [senter.php](senter.php)
 
-# To connection
+# To connection (On develop new secure)
 > deprecated for security problem.
 
 the [senter.php](senter.php) using only `GET` method which parameter `json` only,   <p>
@@ -21,7 +21,7 @@ Still work on new one.
 
 # json format
 
-### Input
+### Input (On develop new secure)
 ```json
 {
     "query": "SHOW TABLES"
