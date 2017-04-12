@@ -11,7 +11,7 @@
     $(document).ready(function () {
         $("#sent").click(function () {
             var request = $.ajax({
-                method: "POST",
+                method: "post",
                 url: "../senter.php",
                 dataType: "json",
                 data: {name: "John", location: "Boston"}
