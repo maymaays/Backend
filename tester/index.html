@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Example Query</title>
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<body>
+<!-- java script -->
+<script>
+    $(document).ready(function () {
+        $("#sent").click(function () {
+            var request = $.ajax({
+                method: "POST",
+                url: "../senter.php",
+                dataType: "json",
+                data: {name: "John", location: "Boston"}
+            });
+
+            // complete
+            request.done(function (response, status, xhr) {
+                $("#1").html("data: " + response + "<br>");
+                $("#2").html("status: " + status + "<br>");
+                // console.log(xhr); // debug
+            });
+            // failure
+            request.fail(function (xhr, status, error) {
+                $("#1").html("data: " + error + " (" + xhr.status + ")<br>");
+                $("#2").html("status: " + status + "<br>");
+                $("#3").html(xhr.responseText + "<br>");
+                // console.log(xhr); // debug
+            });
+        });
+    });
+</script>
+
+<!-- html -->
+<button id="sent">fetch</button>
+<br>
+<span id="1"></span><br>
+<span id="2"></span><br>
+<span id="3"></span>
+</body>
+</html>

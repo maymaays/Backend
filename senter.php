@@ -18,6 +18,7 @@ include 'api/query_api.php';
 
 // print_r($_SERVER);
 
+print_r($_POST);
 
 if (!isset($_GET['action']) or strtolower($_GET['action']) != "select") {
     http_response_code(400);
