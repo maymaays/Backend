@@ -16,10 +16,17 @@ include 'api/query_api.php';
 // $delete = "DELETE FROM `test` WHERE name='new'";
 // $update = "UPDATE test SET surname='new_sur' WHERE name='new'";
 
-// print_r($_SERVER);
+$method = $_SERVER['REQUEST_METHOD'];
 
-print_r($_POST);
+if ($method == 'GET') {
 
+
+} else if ($method == 'POST') {
+
+}
+
+// example
+/*
 if (!isset($_GET['action']) or strtolower($_GET['action']) != "select") {
     http_response_code(400);
     die("SELECT only.");
@@ -32,21 +39,6 @@ if (isset($_GET['table']) and isset($_GET['condition'])) {
 } else {
     http_response_code(404);
     die("Error no searching table.");
-}
-
-/*
-if (isset($_GET['query'])) {
-    $query = $_GET['query'];
-    if (strpos($query, "DELETE") === true or strpos($query, "UPDATE") === true or strpos($query, "INSERT") === true) {
-        die("Cannot `insert`, `delete`, `update` query");
-    }
-
-    $model = new DatabaseModel(false);
-    $result = $model->query($query);
-    echo "<pre>" . sqlToJSON($result) . "</pre>";
-    $model->close();
-} else {
-    http_response_code(400);
 }
 */
 

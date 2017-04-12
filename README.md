@@ -25,14 +25,37 @@ Still work on new one.
 
 # json format
 
-### Input (On develop for new security)
+### Input (case-sensitive) (On develop for new security)
+1. Insert Customer
+ ```json
+ {
+     "action":"insert_customer",
+     "id": "id",
+     "first": "first name",
+     "last": "last name",
+     "address": "address",
+     "email": "email",
+     "password": "md5 encryption"
+ }
+ ```
+ 
+2. Update Customer
+  ```json
+  {
+      "action":"update_customer",
+      "field": "column",
+      "value": "new_value",
+      "password": "md5 encryption"
+  }
+  ```
+  
+3. Search Customer by password
 ```json
-{
-    "action":"select|insert|update|delete",
-    "table":"value",
-    "condition":"id=0|name=someone|...",
-    "auth":"NOT IMPLEMENT YET"
-}
+  {
+      "action":"search_customer",
+      "email": "email",
+      "password": "md5 encryption"
+  }
 ```
 
 ### Output
@@ -42,7 +65,7 @@ Still work on new one.
     "key": "value"
 }
 ```
-**Note**: `key/value` will appear iff SELECT / SHOW / DESCRIBE / EXPLAIN was executed (might more than 1).
+**PS.**: `key/value` will appear iff SELECT / SHOW / DESCRIBE / EXPLAIN was executed (might more than 1).
 
 # Example
 In [test/](test) folder
