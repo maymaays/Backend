@@ -58,6 +58,16 @@ Still work on new one.
   }
 ```
 
+4. get All Data from table 
+```json
+  {
+      "table": "Hotel|Room|RoomType|Facilities",
+      "condition": [
+          "id=1001", "id=1002"
+      ]
+  }
+```
+
 ### Output
 ```json
 {
@@ -65,7 +75,7 @@ Still work on new one.
     "key": "value"
 }
 ```
-**PS.**: `key/value` will appear iff SELECT / SHOW / DESCRIBE / EXPLAIN was executed (might more than 1).
+**PS.**: `key/value` can be more than 1 and it's will appear iff SELECT / SHOW / DESCRIBE / EXPLAIN was executed (might more than 1).
 
 # Example
 In [test/](test) folder
