@@ -16,13 +16,19 @@ function connect()
 
 /**
  * @param $table
- * @param null $condition
+ * @param null $conditions
  * @return string
  */
-function selectAll($table, $condition = null)
+function selectAll($table, array $conditions = null)
 {
-    if (isset($condition))
-        return addPreTag(connect()->queryJSON("SELECT * FROM " . $table . " WHERE " . $condition));
-    else
+    if (isset($conditions)) {
+        $str = "";
+        for ($i = 0; $i < count($conditions); $i++) {
+            $str .= $conditions[$i];
+            if ($i < count($conditions) - 1) $str .= " AND ";
+        }
+        echo $str;
+        return addPreTag(connect()->queryJSON("SELECT * FROM " . $table . " WHERE " . $str));
+    } else
         return addPreTag(connect()->queryJSON("SELECT * FROM " . $table));
 }
