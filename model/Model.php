@@ -35,7 +35,7 @@ class DatabaseModel
             shell_exec("ssh -fNg -L " . $ini_array['default_sql_port'] . ":" . $ini_array['local_host'] . ":" . $ini_array['default_sql_port'] . " " . $ini_array['root_user'] . "@" . $ini_array['ssh_host'] . " sleep 60 >> logfile");
         }
 
-        $this->database = mysqli_connect($ini_array['local_host'], $ini_array['hotel_manager'], $ini_array['database_password'], $ini_array['database_name']);
+        $this->database = mysqli_connect($ini_array['local_host'], $ini_array['database_manager'], $ini_array['database_password'], $ini_array['database_name']);
         if (mysqli_connect_errno()) die("to connect to MySQL: " . mysqli_connect_error());
         if (!isset($this->database)) die("Not database created.");
     }

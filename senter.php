@@ -8,6 +8,8 @@
 include 'api/method_api.php';
 include 'api/json_parser.php';
 include 'api/query_api.php';
+
+header('Content-Type: application/json');
 // http response code: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 
 
@@ -20,8 +22,13 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method == 'GET') {
 
+    include 'Getting.php';
+    // echo selectAll("test", array("id=0", "name=net", "surname=ten"));
 
 } else if ($method == 'POST') {
+
+    include 'Posting.php';
+    // echo selectAll("test", array("id=0", "name=net", "surname=ten"));
 
 }
 
