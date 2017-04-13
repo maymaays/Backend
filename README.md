@@ -4,6 +4,28 @@ Using `php` and hand to wrote it. I don't use any external library in this proje
 # To folk
 You need to fixed database connection `model/Model.php` first.
 
+## Example 
+1. Constants.ini
+```ini
+; IP address
+ssh_host = ""
+local_host = ""
+
+; user
+root_user = "root"
+database_manager = ""
+
+; pass
+database_password = ""
+
+; database
+database_name = ""
+
+; port
+default_sql_port = 3306
+
+```
+
 # Explanation
 1. [api](api) folder
     - method_api.php - contains *useful* method
@@ -81,6 +103,7 @@ Still work on new one.
 In [test/](test) folder
 1. [index.html](test/index.html) - example frontend usage
 2. [data_testing.php](test/data_testing.php) - example http `GET` method
+
 
 # Credit
 - reader markdown in `index.html` by `display-markdown` ([link](https://github.com/sawmac/display-markdown))
