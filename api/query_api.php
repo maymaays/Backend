@@ -6,6 +6,8 @@
  * Time: 10:15 PM
  */
 include $_SERVER['DOCUMENT_ROOT'] . '/model/Model.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/helper/Limitation.php';
+include $_SERVER['DOCUMENT_ROOT'] . '/api/json_parser.php';
 
 function connect()
 {
@@ -21,13 +23,16 @@ function connect()
  */
 function selectAll($table, array $conditions = null)
 {
+    if (!Limitation::select_all($table)) {
+        return failureToJSON("\"" . $table . "\"" . " not allow to select all.");
+    }
+
     if (isset($conditions)) {
         $str = "";
         for ($i = 0; $i < count($conditions); $i++) {
             $str .= $conditions[$i];
             if ($i < count($conditions) - 1) $str .= " AND ";
         }
-        echo $str;
         return connect()->queryJSON("SELECT * FROM " . $table . " WHERE " . $str);
     } else
         return connect()->queryJSON("SELECT * FROM " . $table);

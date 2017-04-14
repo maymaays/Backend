@@ -44,10 +44,10 @@ class DatabaseModel
      *
      *
      * @param string $q
-     * @return mysqli_result|boolean For successful SELECT, SHOW, DESCRIBE or
+     * @return mysqli_result|boolean|string For successful SELECT, SHOW, DESCRIBE or
      * EXPLAIN queries <b>mysqli_query</b> will return
      * a <b>mysqli_result</b> object.For other successful queries <b>mysqli_query</b> will
-     * return true and false on failure.
+     * return true and string if on failure.
      */
     public function query(string $q)
     {
@@ -58,9 +58,13 @@ class DatabaseModel
 
         mysqli_set_charset($this->database, 'utf8');
         if ($result = $this->database->query($q)) {
-            return $result;
+            if (is_bool($result) and $result == false) {
+                return $this->database->error;
+            } else {
+                return $result;
+            }
         } else
-            die($this->database->error);
+            return $this->database->error;
     }
 
     /**

@@ -25,12 +25,24 @@ function toJSON(bool $success, array $array = null /* mapping array */)
 }
 
 /**
- * @param mysqli_result|bool $result
+ * change failure to json
+ * @param $description string why fail
+ * @return string failure json
+ */
+function failureToJSON($description)
+{
+    return toJSON(false, array("failure" => $description));
+}
+
+/**
+ * @param mysqli_result|bool|string $result
  * @return string json of data
  */
 function sqlToJSON($result)
 {
-    if (is_object($result)) {
+    if (is_string($result)) {
+        return failureToJSON($result);
+    } else if (is_object($result)) {
         $array = to_array($result);
         $result->free();
         return toJSON(isset($array), $array);
