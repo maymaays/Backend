@@ -10,6 +10,7 @@ class Information
 {
 
     /**
+     * all available action.
      * @param $action
      * @return array|null
      */
@@ -29,8 +30,8 @@ class Information
                 return array("email", "password");
                 break;
             default:
-                return null;
-                break;
+                http_response_code(501);
+                die(failureToJSON($action . " isn't implementation yet!"));
         }
     }
 }
