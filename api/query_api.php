@@ -54,10 +54,15 @@ function select($table, array $columns, array $conditions = null)
         return connect()->queryJSON("SELECT " . $col . " FROM " . $table);
 }
 
+/**
+ * @param $table
+ * @param array $values
+ * @return string
+ */
 function insert($table, array $values)
 {
     $cols = connect()->getColumns($table);
-    if (!isset($cols)) failureToJSON($table . " don't have any column(s).");
+    if (is_string($cols)) return failureToJSON($table . " with error " . $cols);
     else {
         $str_head_col = null;
         foreach ($cols as $col) {
@@ -77,3 +82,7 @@ function insert($table, array $values)
     }
 }
 
+function insert_customer(array $new_values)
+{
+    return insert("CustomerDetail", $new_values);
+}
