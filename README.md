@@ -66,7 +66,7 @@ Still work on new one.
   {
       "action":"update_customer",
       "field": "column",
-      "value": "new_value",
+      "new_value": "new_value",
       "password": "md5 encryption"
   }
   ```
@@ -83,6 +83,7 @@ Still work on new one.
 4. get All Data from table 
 ```json
   {
+    "action":"select_all",
       "table": "Hotel|Room|RoomType|Facilities",
       "condition": [
           "id=1001", "id=1002"
