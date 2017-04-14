@@ -29,19 +29,5 @@ if (!isset($_POST['action']) and !isset($_GET['action'])) {
         die(failureToJSON($method . " not allow"));
     }
 }
-// example
-/*
-if (!isset($_GET['action']) or strtolower($_GET['action']) != "select") {
-    http_response_code(400);
-    die("SELECT only.");
-}
 
-if (isset($_GET['table']) and isset($_GET['condition'])) {
-    echo selectAll($_GET['table'], $_GET['condition']);
-} else if (isset($_GET['table']) and !isset($_GET['condition'])) {
-    echo selectAll($_GET['table']);
-} else {
-    http_response_code(404);
-    die("Error no searching table.");
-}
-*/
+?>
