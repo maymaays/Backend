@@ -35,24 +35,18 @@ default_sql_port = 3306
 3. [test](test) folder - contains example usage, how to write the frontend and more...
 4. main php is name: [senter.php](index.php) @Deprecated because security problem
 
-# To connection (On develop new security)
-> deprecated for security problem.
-
-the [senter.php](index.php) using only `GET` method which parameter `json` only,   <p>
-This will receive sql query -> query in database -> sent result back in `json` format
+# To connection
+> on development
 
 ------
 
-Still work on new one.
-
 # json format
 
-### Input (case-sensitive) (On develop for new security)
-1. Insert Customer
+### Input (case-sensitive, need `'` when input is string/text)
+1. Insert Customer **(POST Method)**
  ```json
  {
      "action":"insert_customer",
-     "id": "id",
      "first": "first name",
      "last": "last name",
      "address": "address",
@@ -61,7 +55,7 @@ Still work on new one.
  }
  ```
  
-2. Update Customer
+2. Update Customer **(POST Method)**
   ```json
   {
       "action":"update_customer",
@@ -71,7 +65,7 @@ Still work on new one.
   }
   ```
   
-3. Search Customer by password
+3. Search Customer by password **(POST Method)**
 ```json
   {
       "action":"search_customer",
@@ -80,7 +74,7 @@ Still work on new one.
   }
 ```
 
-4. get All Data from table 
+4. get All Data from table **(GET Method)**
 ```json
   {
     "action":"select_all",
