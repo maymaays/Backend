@@ -7,7 +7,6 @@
  */
 include $_SERVER['DOCUMENT_ROOT'] . '/model/Model.php';
 include $_SERVER['DOCUMENT_ROOT'] . '/helper/Limitation.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/api/json_parser.php';
 
 function connect()
 {
@@ -27,7 +26,7 @@ function selectAll($table, array $conditions = null)
         return failureToJSON("\"" . $table . "\"" . " not allow to select all.");
     }
 
-    if (isset($conditions)) {
+    if (isset($conditions) and count($conditions) != 0) {
         $str = "";
         for ($i = 0; $i < count($conditions); $i++) {
             $str .= $conditions[$i];
