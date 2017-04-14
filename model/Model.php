@@ -78,7 +78,24 @@ class DatabaseModel
         return sqlToJSON($this->query($q));
     }
 
-    // call when finish only
+    /**
+     * @param $table string input table
+     * @return array|null array if had column in table, otherwise, return null
+     */
+    public function getColumns($table)
+    {
+        $json = $this->queryJSON("SHOW COLUMNS FROM " . $table);
+        $json_obj = json_decode($json);
+        if ($json_obj->success === true | "true") {
+            return $json_obj->Field;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * call when finish only
+     */
     function close()
     {
         $this->database->close();
