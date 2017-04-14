@@ -42,8 +42,3 @@ function to_array(mysqli_result $result)
     }
     return $array;
 }
-
-function addPreTag($string)
-{
-    return "<pre>" . $string . "</pre>";
-}

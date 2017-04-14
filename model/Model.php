@@ -70,6 +70,7 @@ class DatabaseModel
      */
     public function queryJSON(string $q)
     {
+        include $_SERVER['DOCUMENT_ROOT'] . '/api/json_parser.php';
         return sqlToJSON($this->query($q));
     }
 

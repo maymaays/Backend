@@ -28,7 +28,7 @@ function selectAll($table, array $conditions = null)
             if ($i < count($conditions) - 1) $str .= " AND ";
         }
         echo $str;
-        return addPreTag(connect()->queryJSON("SELECT * FROM " . $table . " WHERE " . $str));
+        return connect()->queryJSON("SELECT * FROM " . $table . " WHERE " . $str);
     } else
-        return addPreTag(connect()->queryJSON("SELECT * FROM " . $table));
+        return connect()->queryJSON("SELECT * FROM " . $table);
 }
