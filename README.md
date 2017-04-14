@@ -91,15 +91,23 @@ Still work on new one.
 ```
 
 ### Output
+1. success
 ```json
 {
-    "success": "true|false", 
-    "key": "value",
+    "success": "true", 
+    "key": "value"
+}
+```
+**PS.**: `key/value` can be `0...N` and it's will appear iff SELECT / SHOW / DESCRIBE / EXPLAIN was executed (might more than 1).
+
+2. failure
+```json
+{
+    "success": "false", 
     "failure":"condition"
 }
 ```
-**PS.**: `key/value` can be more than 1 and it's will appear iff SELECT / SHOW / DESCRIBE / EXPLAIN was executed (might more than 1).  
-**PS.2**: `failure` will happen iff `success=false`
+
 
 # Example
 1. [test/](test) folder - connect front and backend
