@@ -15,13 +15,16 @@ header('Content-Type: application/json');
 // $update = "UPDATE test SET surname='new_sur' WHERE name='new'";
 
 $method = $_SERVER['REQUEST_METHOD'];
-
-if ($method == 'GET') {
-    include 'Getting.php';
-} else if ($method == 'POST') {
-    include 'Posting.php';
+if (!isset($_POST['action']) and !isset($_GET['action'])) {
+    include 'api/json_parser.php';
+    echo failureToJSON("don't have \"action\" parse-in");
+} else {
+    if ($method == 'GET') {
+        include 'Getting.php';
+    } else if ($method == 'POST') {
+        include 'Posting.php';
+    }
 }
-
 // example
 /*
 if (!isset($_GET['action']) or strtolower($_GET['action']) != "select") {
