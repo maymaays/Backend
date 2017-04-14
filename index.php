@@ -5,13 +5,9 @@
  * Date: 4/8/2017 AD
  * Time: 4:16 PM
  */
-include 'api/method_api.php';
-include 'api/json_parser.php';
-include 'api/query_api.php';
 
-header('Content-Type: application/json');
 // http response code: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
-
+header('Content-Type: application/json');
 
 // $select = "SELECT * FROM test WHERE id=0";
 // $insert = "INSERT INTO test (id, name, surname) VALUES (0, 'new', 'sur')";
@@ -21,15 +17,9 @@ header('Content-Type: application/json');
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method == 'GET') {
-
     include 'Getting.php';
-    // echo selectAll("test", array("id=0", "name=net", "surname=ten"));
-
 } else if ($method == 'POST') {
-
     include 'Posting.php';
-    // echo selectAll("test", array("id=0", "name=net", "surname=ten"));
-
 }
 
 // example
@@ -48,6 +38,3 @@ if (isset($_GET['table']) and isset($_GET['condition'])) {
     die("Error no searching table.");
 }
 */
-
-
-// example: http://localhost:63342/ProjectTest/senter.php?_ijt=9u8f5l2hi5mege5utue6pb8jk6&query=SELECT%20*%20FROM%20test%20WHERE%20id=0 (localhost)

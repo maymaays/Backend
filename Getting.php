@@ -1,5 +1,7 @@
 <?php
 
-echo json_encode(array("a" => 1, "b" => 2, "C" => 3));
+include $_SERVER['DOCUMENT_ROOT'] . '/api/query_api.php';
+
+echo selectAll("test");
 
 ?>
