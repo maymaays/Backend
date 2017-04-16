@@ -49,7 +49,7 @@ class DatabaseModel
      * a <b>mysqli_result</b> object.For other successful queries <b>mysqli_query</b> will
      * return true and string if on failure.
      */
-    public function query(string $q)
+    private function query(string $q)
     {
         // first test, if not exist connect again
         if (!isset($this->database)) {
@@ -74,6 +74,7 @@ class DatabaseModel
      */
     public function queryJSON(string $q)
     {
+        // echo $q; // debug tool
         return sqlToJSON($this->query($q));
     }
 
