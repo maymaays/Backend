@@ -34,7 +34,7 @@ class Limitation
         foreach ($required as $req) {
             if (!isset($actual[$req])) {
                 $error = true;
-                $str .= "\"" . $req . "\"" . " ";
+                $str .= "`" . $req . "`" . " ";
             }
         }
 
