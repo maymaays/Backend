@@ -6,7 +6,6 @@
  * Time: 10:15 PM
  */
 include $_SERVER['DOCUMENT_ROOT'] . '/model/Model.php';
-include $_SERVER['DOCUMENT_ROOT'] . '/helper/Limitation.php';
 
 $model = null;
 
@@ -43,13 +42,17 @@ function select($table, array $columns, array $conditions = null)
     }
     if (!isset($col)) return failureToJSON("No column(s) specific.");
 
-    if (isset($conditions) and count($conditions) != 0) {
+    if (isset($conditions)) {
         $str = "";
         for ($i = 0; $i < count($conditions); $i++) {
             $str .= $conditions[$i];
             if ($i < count($conditions) - 1) $str .= " AND ";
         }
-        return connect()->queryJSON("SELECT " . $col . " FROM " . $table . " WHERE " . $str);
+
+        if ($str === "")
+            return connect()->queryJSON("SELECT " . $col . " FROM " . $table);
+        else
+            return connect()->queryJSON("SELECT " . $col . " FROM " . $table . " WHERE " . $str);
     } else
         return connect()->queryJSON("SELECT " . $col . " FROM " . $table);
 }
@@ -66,7 +69,7 @@ function insert($table, array $values)
     else {
         $str_head_col = null;
         foreach ($cols as $col) {
-            if (!isset($str_head_col)) $str_head_col = "(" . $col;
+            if (!isset($str_head_col)) $str_head_col = " (" . $col;
             else $str_head_col .= ", " . $col;
         }
         $str_head_col .= ")";
@@ -78,11 +81,16 @@ function insert($table, array $values)
         }
         $str_value_col .= ")";
 
-        return connect()->queryJSON("INSERT INTO " . $table . " " . $str_head_col . " VALUES " . $str_value_col);
+        if (!isset($str_head_col) or !isset($str_value_col)) return failureToJSON("Don't have insert head(s) or value(s)");
+        return connect()->queryJSON("INSERT INTO " . $table . $str_head_col . " VALUES " . $str_value_col);
     }
 }
 
 function insert_customer(array $new_values)
 {
     return insert("CustomerDetail", $new_values);
+}
+
+function update() {
+
 }
