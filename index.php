@@ -19,7 +19,6 @@ header('Content-Type: application/json');
 // $delete = "DELETE FROM `test` WHERE name='new'";
 // $update = "UPDATE test SET surname='new_sur' WHERE name='new'";
 
-
 // print_r($_SERVER); // debug tool
 $method = $_SERVER['REQUEST_METHOD'];
 $input = [];
@@ -32,7 +31,7 @@ if ($method == 'GET') {
     die(failureToJSON($method . " not allow"));
 }
 
-print_r($input); // debug tool
+// print_r($input); // debug tool
 
 if (!isset($input['action'])) {
     http_response_code(400);
@@ -71,12 +70,3 @@ switch ($action) {
 }
 
 ?>
-
-<!--{-->
-<!--    "action":"insert_customer",-->
-<!--    "first": "first name",-->
-<!--    "last": "last name",-->
-<!--    "address": "address",-->
-<!--    "email": "email",-->
-<!--    "password": "md5 encryption"-->
-<!--}-->
