@@ -6,6 +6,9 @@
  * Time: 4:16 PM
  */
 include 'api/json_parser.php';
+include "api/query_api.php";
+include "helper/Limitation.php";
+include "helper/Information.php";
 
 // http response code: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 header('Content-Type: application/json');
@@ -16,18 +19,47 @@ header('Content-Type: application/json');
 // $update = "UPDATE test SET surname='new_sur' WHERE name='new'";
 
 $method = $_SERVER['REQUEST_METHOD'];
-if (!isset($_POST['action']) and !isset($_GET['action'])) {
+$input = [];
+if ($method == 'GET') {
+    $input = $_GET;
+} else if ($method == 'POST') {
+    $input = $_POST;
+} else {
+    http_response_code(405);
+    die(failureToJSON($method . " not allow"));
+}
+
+if (!isset($input['action'])) {
     http_response_code(400);
     die(failureToJSON("don't have \"action\" parse-in"));
-} else {
-    if ($method == 'GET') {
-        include 'Getting.php';
-    } else if ($method == 'POST') {
-        include 'Posting.php';
-    } else {
-        http_response_code(405);
-        die(failureToJSON($method . " not allow"));
-    }
+}
+
+$action = $input['action'];
+$array = Information::get_required_parameter($action);
+if (!isset($array)) {
+    http_response_code(501);
+    die(failureToJSON($action . " isn't implementation yet!"));
+}
+
+$str = Limitation::is_required($array, $input);
+if (is_string($str)) {
+    http_response_code(400);
+    die(failureToJSON($str . " is required for " . $action . " action"));
+}
+
+
+switch ($action) {
+    case "select_all":
+        echo selectAll($input[$array[0]], $input[$array[1]]);
+        break;
+    case "insert_customer":
+        $arr = [];
+        foreach ($array as $item) {
+            $arr[] = $input[$item];
+        }
+        // print_r($arr);
+        echo insert_customer($arr);
+        break;
 }
 
 ?>
