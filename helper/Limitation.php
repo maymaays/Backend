@@ -30,9 +30,6 @@ class Limitation
      */
     public static function is_required($method, array $expected, array $actual)
     {
-        // first element of expected is expected method
-        if (array_shift($expected) !== $method) return $actual['action'] . " not allow to sent by " . $method . " method.";
-
         $str = "";
         $error = false;
         foreach ($expected as $req) {
