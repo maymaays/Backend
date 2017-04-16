@@ -21,7 +21,7 @@ class Information
                 return array("table", "condition");
                 break;
             case "insert_customer":
-                return array("id", "first", "last", "address", "email", "password");
+                return array("first", "last", "address", "email", "password");
                 break;
             case "update_customer":
                 return array("field", "new_value", "password");
