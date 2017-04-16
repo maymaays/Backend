@@ -47,14 +47,13 @@ function select($table, array $columns, $conditions = "")
  * select all (only use for allow table Limitation::select_all() method)
  *
  * @param $table
- * @param $conditions array|null condition like id=12 or name='something'
+ * @param $conditions array|string condition like id=12 or name='something'
  * @return string json
  */
-function selectAll($table, array $conditions = null)
+function selectAll($table, $conditions = "")
 {
     if (!Limitation::select_all($table))
         return failureToJSON("\"" . $table . "\"" . " not allow to select all.");
-
     return select($table, array("*"), $conditions);
 }
 
