@@ -6,8 +6,6 @@
  * Time: 10:08 PM
  */
 
-include $_SERVER['DOCUMENT_ROOT'] . '/api/method_api.php';
-
 /**
  * @param bool $success
  * @param array|null $array

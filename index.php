@@ -5,8 +5,9 @@
  * Date: 4/8/2017 AD
  * Time: 4:16 PM
  */
-include 'api/json_parser.php';
+include "api/json_parser.php";
 include "api/query_api.php";
+include "api/method_api.php";
 include "helper/Limitation.php";
 include "helper/Information.php";
 
@@ -31,7 +32,7 @@ if ($method == 'GET') {
 
 if (!isset($input['action'])) {
     http_response_code(400);
-    die(failureToJSON("don't have \"action\" parse-in"));
+    die(failureToJSON("don't have (action) parse-in"));
 }
 
 $action = $input['action'];
