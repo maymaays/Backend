@@ -41,7 +41,10 @@ $action = $input['action'];
 $array = Information::get_required_parameter($action);
 
 // first element of get_required_parameter() is expected method
-if (array_shift($array) != $method) return $action . " not allow to sent by " . $method . " method.";
+if (array_shift($array) != $method) {
+    http_response_code(405);
+    die($action . " not allow to sent by " . $method . " method.");
+}
 
 $str = Limitation::is_required($method, $array, $input);
 if (is_string($str)) {
@@ -49,8 +52,8 @@ if (is_string($str)) {
     die(failureToJSON($str));
 }
 
-print_r($input);
-print_r($array);
+// print_r($input);
+// print_r($array);
 
 switch ($action) {
     case "select_all":
