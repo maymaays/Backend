@@ -54,7 +54,7 @@ switch ($action) {
         foreach ($array as $item) {
             $arr[] = $input[$item];
         }
-        // print_r($arr);
+        debug_to_console($arr);
         echo insert_customer($arr);
         break;
 }
