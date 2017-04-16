@@ -29,10 +29,10 @@
     $(document).ready(function () {
         $("#submit").click(function () {
             var method = $("input[name='method']:checked").val();
-            console.log(method);
 
             var link = $("#link").val();
             var body = JSON.parse($("#query").val());
+            console.log(body);
 
             if (link === null || link === "") {
                 alert("don't have link.");
@@ -42,6 +42,7 @@
             var request = $.ajax({
                 method: method,
                 url: link,
+                async: false,
                 // dataType: "json",
                 data: body
             });
