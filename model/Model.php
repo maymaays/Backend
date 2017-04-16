@@ -76,8 +76,7 @@ class DatabaseModel
      */
     public function queryJSON(string $q)
     {
-
-        echo $q; // debug tool
+        // echo $q; // debug tool
         return sqlToJSON($this->query($q));
     }
 
