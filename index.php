@@ -32,6 +32,8 @@ if ($method == 'GET') {
     die(failureToJSON($method . " not allow"));
 }
 
+print_r($input); // debug tool
+
 if (!isset($input['action'])) {
     http_response_code(400);
     die(failureToJSON("don't have (action) parse-in"));
@@ -69,3 +71,12 @@ switch ($action) {
 }
 
 ?>
+
+<!--{-->
+<!--    "action":"insert_customer",-->
+<!--    "first": "first name",-->
+<!--    "last": "last name",-->
+<!--    "address": "address",-->
+<!--    "email": "email",-->
+<!--    "password": "md5 encryption"-->
+<!--}-->
