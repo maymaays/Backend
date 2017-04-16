@@ -37,15 +37,11 @@ if (!isset($input['action'])) {
 
 $action = $input['action'];
 $array = Information::get_required_parameter($action);
-if (!isset($array)) {
-    http_response_code(501);
-    die(failureToJSON($action . " isn't implementation yet!"));
-}
 
-$str = Limitation::is_required($array, $input);
+$str = Limitation::is_required($method, $array, $input);
 if (is_string($str)) {
     http_response_code(400);
-    die(failureToJSON($str . " is required for " . $action . " action"));
+    die(failureToJSON($str));
 }
 
 

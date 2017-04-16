@@ -10,24 +10,24 @@ class Information
 {
 
     /**
-     * all available action.
+     * First element is expected/required method, and other is all key that should pass with action.
      * @param $action
-     * @return array|null
+     * @return array
      */
     public static function get_required_parameter($action)
     {
         switch ($action) {
             case "select_all":
-                return array("table", "condition");
+                return array("GET", "table", "condition");
                 break;
             case "insert_customer":
-                return array("first", "last", "address", "email", "password");
+                return array("POST", "first", "last", "address", "email", "password");
                 break;
             case "update_customer":
-                return array("field", "new_value", "password");
+                return array("POST", "field", "new_value", "password");
                 break;
             case "search_customer":
-                return array("email", "password");
+                return array("POST", "email", "password");
                 break;
             default:
                 http_response_code(501);

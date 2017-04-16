@@ -23,21 +23,25 @@ class Limitation
     }
 
     /**
-     * @param array $required get from Information::get_required_parameter() method
+     * @param string $method 'GET', 'POST', etc
+     * @param array $expected get from Information::get_required_parameter() method
      * @param array $actual get from $_GET, $_POST etc.
      * @return false|string string when have error occurred.
      */
-    public static function is_required(array $required, array $actual)
+    public static function is_required($method, array $expected, array $actual)
     {
+        // first element of expected is expected method
+        if (array_shift($expected) !== $method) return $actual['action'] . " not allow to sent by " . $method . " method.";
+
         $str = "";
         $error = false;
-        foreach ($required as $req) {
+        foreach ($expected as $req) {
             if (!isset($actual[$req])) {
                 $error = true;
                 $str .= "`" . $req . "`" . " ";
             }
         }
 
-        return $error ? $str : false;
+        return $error ? $str . " is required for " . $actual['action'] . " action" : false;
     }
 }
