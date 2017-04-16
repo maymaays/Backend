@@ -51,9 +51,8 @@ switch ($action) {
         break;
     case "insert_customer":
         $arr = [];
-        foreach ($array as $item) {
+        foreach ($array as $item)
             $arr[] = $input[$item];
-        }
         array_shift($arr);
         echo insert_customer($arr);
         break;
