@@ -29,10 +29,8 @@ class DatabaseModel
 
     public function connection()
     {
-        if (isset($this->database)) {
-            debug_to_console('database already created.');
+        if (isset($this->database))
             return;
-        }
         $ini_array = parse_ini_file("constants.ini");
         if (!$this->PRODUCTION) {
             // precondition: need to add private/public key for ssh (link: https://github.com/Database-Systems-For-SKE/Planning-Design#important)
