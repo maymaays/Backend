@@ -47,10 +47,10 @@ default_sql_port = 3306
  ```json
  {
      "action":"insert_customer",
-     "first": "first name",
-     "last": "last name",
-     "address": "address",
-     "email": "email",
+     "first_s": "first name",
+     "last_s": "last name",
+     "address_s": "address",
+     "email_s": "email",
      "password": "md5 encryption"
  }
  ```
@@ -59,8 +59,12 @@ default_sql_port = 3306
   ```json
   {
       "action":"update_customer",
-      "field": "column",
-      "new_value": "new_value",
+      "fields_a": [
+          "column1", "column2"
+      ],
+      "new_values_a": [
+          "new_value1", "new_value1"
+      ],
       "password": "md5 encryption"
   }
   ```
@@ -69,7 +73,7 @@ default_sql_port = 3306
 ```json
   {
       "action":"search_customer",
-      "email": "email",
+      "email_s": "email",
       "password": "md5 encryption"
   }
 ```
@@ -78,9 +82,23 @@ default_sql_port = 3306
 ```json
   {
     "action":"select_all",
-      "table": "Hotel|Room|RoomType|Facilities",
-      "condition": [
+      "table_s": "Hotel|Room|RoomType|Facilities",
+      "conditions_as": [
           "id=1001", "id=1002"
+      ]
+  }
+```
+
+5. get some column **(GET Method)**
+```json
+  {
+    "action":"select",
+      "table_s": "Hotel|Room|RoomType|Facilities",
+      "columns_as": [
+          "name", "description"
+      ],
+      "conditions_as": [
+          "id=1001"
       ]
   }
 ```
