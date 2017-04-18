@@ -65,3 +65,24 @@ function convert_array(array $arr, $between, $first = null, $last = null)
         $str .= $last;
     return $str;
 }
+
+/**
+ * get value from actual by expected key
+ * @param array $expected_key
+ * @param array $actual
+ * @return array
+ */
+function fetch_required_to_array(array $expected_key, array $actual)
+{
+    $arr = [];
+    foreach ($expected_key as $item) {
+        if (!Limitation::is_allow_type($item, $actual[$item])) {
+            http_response_code(406);
+            die(failureToJSON($item . " must be " . convert_array(Information::get_class_of($item), ", ") . " type."));
+
+        }
+        $arr[] = $actual[$item];
+    }
+    // array_shift($arr); // avoid empty element at first
+    return $arr;
+}
