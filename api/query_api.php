@@ -24,23 +24,28 @@ function connect()
 /**
  * select columns from table with/without condition
  * @param $table
- * @param array $columns columns to select (if want to select all please use selectAll instead)
+ * @param array|string $col columns to select (if want to select all please use selectAll instead)
  * @param array|string $conditions pass string or null if don't want condition
  * @return string json
  */
-function select($table, array $columns, $conditions = "")
+function select($table, $col, $conditions = "")
 {
-    $col = convert_array($columns, ", ");
-    if (!isset($col)) return failureToJSON("No column(s) specific.");
+    // convert column to array
+    $columns = array();
+    if (is_string($col)) $columns = array($col);
+    else $columns = $col;
+
+    $col_str = convert_array($columns, ", ");
+    if (!isset($col_str)) return failureToJSON("No column(s) specific.");
 
     if (isset($conditions) and !is_string($conditions)) {
         $str = convert_array($conditions, " AND ");
         if ($str === "")
-            return connect()->queryJSON("SELECT " . $col . " FROM " . $table);
+            return connect()->queryJSON("SELECT " . $col_str . " FROM " . $table);
         else
-            return connect()->queryJSON("SELECT " . $col . " FROM " . $table . " WHERE " . $str);
+            return connect()->queryJSON("SELECT " . $col_str . " FROM " . $table . " WHERE " . $str);
     } else
-        return connect()->queryJSON("SELECT " . $col . " FROM " . $table);
+        return connect()->queryJSON("SELECT " . $col_str . " FROM " . $table);
 }
 
 /**
