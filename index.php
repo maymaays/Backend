@@ -21,11 +21,11 @@ header('Content-Type: application/json');
 
 // print_r($_SERVER); // debug tool
 $method = $_SERVER['REQUEST_METHOD'];
-$input = [];
+$actual_array = [];
 if ($method == 'GET') {
-    $input = $_GET;
+    $actual_array = $_GET;
 } else if ($method == 'POST') {
-    $input = $_POST;
+    $actual_array = $_POST;
 } else {
     http_response_code(405);
     die(failureToJSON($method . " not allow"));
@@ -33,39 +33,44 @@ if ($method == 'GET') {
 
 // print_r($input); // debug tool
 
-if (!isset($input['action'])) {
+if (!isset($actual_array['action'])) {
     http_response_code(400);
     die(failureToJSON("don't have (action) parse-in"));
 }
 
-$action = $input['action'];
-$array = Information::get_required_parameter($action);
+$action = $actual_array['action'];
+$expected_array = Information::get_required_key($action);
 
 // first element of get_required_parameter() is expected method
-if (array_shift($array) != $method) {
+if (array_shift($expected_array) != $method) {
     http_response_code(405);
     die($action . " not allow to sent by " . $method . " method.");
 }
 
-$str = Limitation::is_required($method, $array, $input);
+$str = Limitation::is_required($method, $expected_array, $actual_array);
 if (is_string($str)) {
     http_response_code(400);
     die(failureToJSON($str));
 }
 
-// print_r($input);
-// print_r($array);
+// debug tool
+// print_r($expected_array);
+// print_r($actual_array);
+
+$raw_array = fetch_required_to_array($expected_array, $actual_array);
 
 switch ($action) {
+    case "select":
+        echo select($raw_array[0], $raw_array[1], $raw_array[2]);
+        break;
     case "select_all":
-        echo selectAll($input[$array[0]], $input[$array[1]]);
+        echo selectAll($raw_array[0], $raw_array[1]);
         break;
     case "insert_customer":
-        $arr = [];
-        foreach ($array as $item)
-            $arr[] = $input[$item];
-        array_shift($arr);
-        echo insert_customer($arr);
+        echo insert_customer($raw_array);
+        break;
+    case "update_customer":
+        // update();
         break;
 }
 
