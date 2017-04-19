@@ -31,6 +31,10 @@ if ($method == 'GET') {
     die(failureToJSON($method . " not allow"));
 }
 
+if (count($actual_array) == 0 or count($actual_array) == 1) {
+    die(failureToJSON("If you don't know how to use this api, go to https://api.kamontat.me/docs to learn it."));
+}
+
 // print_r($input); // debug tool
 
 if (!isset($actual_array['action'])) {
