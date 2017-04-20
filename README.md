@@ -117,7 +117,7 @@ default_sql_port = 3306
 ```json
 {
     "success": "false", 
-    "failure":"condition"
+    "message":"condition"
 }
 ```
 

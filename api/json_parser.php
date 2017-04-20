@@ -29,7 +29,7 @@ function toJSON(bool $success, array $array = null /* mapping array */)
  */
 function failureToJSON($description = "Some error occurred.")
 {
-    return toJSON(false, array("failure" => $description));
+    return toJSON(false, array("message" => $description));
 }
 
 /**
