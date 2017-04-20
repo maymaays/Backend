@@ -32,7 +32,7 @@ class Information
                 return array("POST", "first_s", "last_s", "address_s", "email_s", "password");
                 break;
             case "update_customer":
-                return array("POST", "fields_a", "new_values_a", "password");
+                return array("POST", "fields_a", "new_values_a", "email_s", "password");
                 break;
             case "search_customer":
                 return array("POST", "email_s", "password");

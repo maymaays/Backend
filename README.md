@@ -65,6 +65,7 @@ default_sql_port = 3306
       "new_values_a": [
           "new_value1", "new_value1"
       ],
+      "email_s": "email",
       "password": "md5 encryption"
   }
   ```
