@@ -43,15 +43,14 @@ class DatabaseModel
     }
 
     /**
-     *
-     *
+     * query and return result as json format
      * @param string $q
      * @return mysqli_result|boolean|string For successful SELECT, SHOW, DESCRIBE or
      * EXPLAIN queries <b>mysqli_query</b> will return
      * a <b>mysqli_result</b> object.For other successful queries <b>mysqli_query</b> will
      * return true and string if on failure.
      */
-    private function query(string $q)
+    public function queryJSON(string $q)
     {
         // first test, if not exist connect again
         if (!isset($this->database)) {
@@ -60,24 +59,13 @@ class DatabaseModel
 
         mysqli_set_charset($this->database, 'utf8');
         if ($result = $this->database->query($q)) {
-            if (is_bool($result) and $result == false) {
-                return $this->database->error;
+            if (is_bool($result) and $result === false) {
+                return failureToJSON($this->database->error);
             } else {
-                return $result;
+                return sqlToJSON($result);
             }
         } else
-            return $this->database->error;
-    }
-
-    /**
-     * query and return result as json format
-     * @param string $q query
-     * @return string json file
-     */
-    public function queryJSON(string $q)
-    {
-        // echo $q; // debug tool
-        return sqlToJSON($this->query($q));
+            return failureToJSON($this->database->error);
     }
 
     /**
