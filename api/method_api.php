@@ -29,6 +29,11 @@ function merge_map($main, $arr)
     return $result;
 }
 
+/**
+ * change mysql to array
+ * @param mysqli_result $result
+ * @return array|null
+ */
 function to_array(mysqli_result $result)
 {
     $array = array();
@@ -85,4 +90,25 @@ function fetch_required_to_array(array $expected_key, array $actual)
     }
     // array_shift($arr); // avoid empty element at first
     return $arr;
+}
+
+/**
+ * merge 2 array to 1 array by =, example: array1{a, b, c}, array2{z, y, x} : result array{a='z', b='y', c='x'}
+ *
+ * For merge array condition, set, etc...
+ * @param array $arr1 first
+ * @param array $arr2 second
+ * @return array|null result merge array
+ */
+function merge_array($arr1, $arr2)
+{
+    if (count($arr1) == count($arr2)) {
+        $result = array();
+        for ($i = 0; count($arr1); $i++) {
+            $result[] = array_shift($arr1) . "='" . array_shift($arr2) . "'";
+        }
+        return $result;
+    } else {
+        return null;
+    }
 }
