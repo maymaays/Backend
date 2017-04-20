@@ -38,14 +38,17 @@ function select($table, $col, $conditions = "")
     $col_str = convert_array($columns, ", ");
     if (!isset($col_str)) return failureToJSON("No column(s) specific.");
 
-    if (isset($conditions) and !is_string($conditions)) {
-        $str = convert_array($conditions, " AND ");
-        if ($str === "")
-            return connect()->queryJSON("SELECT " . $col_str . " FROM " . $table);
-        else
-            return connect()->queryJSON("SELECT " . $col_str . " FROM " . $table . " WHERE " . $str);
-    } else
+    if (!isset($conditions)) return connect()->queryJSON("SELECT " . $col_str . " FROM " . $table);
+    $condition_str = "";
+    if (is_array($conditions))
+        $condition_str = convert_array($conditions, " AND ");
+    else if (is_string($conditions))
+        $condition_str = $conditions;
+
+    if ($condition_str === "")
         return connect()->queryJSON("SELECT " . $col_str . " FROM " . $table);
+
+    return connect()->queryJSON("SELECT " . $col_str . " FROM " . $table . " WHERE " . $condition_str);
 }
 
 /**
@@ -92,15 +95,19 @@ function update($table, array $sets, $conditions = "")
 {
     $set_str = convert_array($sets, ", ");
     if (!isset($set_str)) return failureToJSON("No column(s) specific.");
-
-    if (isset($conditions) and !is_string($conditions)) {
+    // no condition
+    if (!isset($conditions)) return connect()->queryJSON("UPDATE " . $table . " SET " . $set_str);
+    // convert condition to string
+    $condition_str = "";
+    if (is_array($conditions))
         $condition_str = convert_array($conditions, " AND ");
-        if ($condition_str === "")
-            return connect()->queryJSON("UPDATE " . $table . " SET " . $set_str);
-        else
-            return connect()->queryJSON("UPDATE " . $table . " SET " . $set_str . " WHERE " . $condition_str);
-    } else
+    else if (is_string($conditions))
+        $condition_str = $conditions;
+
+    if ($condition_str === "")
         return connect()->queryJSON("UPDATE " . $table . " SET " . $set_str);
+
+    return connect()->queryJSON("UPDATE " . $table . " SET " . $set_str . " WHERE " . $condition_str);
 }
 
 // new implementation
@@ -108,4 +115,23 @@ function update($table, array $sets, $conditions = "")
 function insert_customer(array $new_values)
 {
     return insert("CustomerDetail", $new_values);
+}
+
+function update_customer($email, $pass, array $sets)
+{
+    $json = json_decode(search_customer($email, $pass), true);
+    return update("CustomerDetail", $sets, "customerID=" . $json['customerID']);
+}
+
+function search_customer(string $email, string $password)
+{
+    $json = selectAll("CustomerDetail", array("email='" . $email . "'", "password='" . $password . "'"));
+
+    $array = json_decode($json, true);
+    if (array_key_exists("customerID", $array)) return failureToJSON($array['failure']);
+
+    // fail when searching and nothing found
+    // $id = $array['customerID'];
+    // if (!isset($id) or is_bool($id)) return failureToJSON("customer not found.");
+    return $json;
 }
