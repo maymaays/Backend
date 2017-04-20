@@ -74,7 +74,10 @@ switch ($action) {
         echo insert_customer($raw_array);
         break;
     case "update_customer":
-        // update();
+        echo update_customer($raw_array[2], $raw_array[3], merge_array($raw_array[0], $raw_array[1]));
+        break;
+    case "search_customer":
+        echo search_customer($raw_array[0], $raw_array[1]);
         break;
 }
 
