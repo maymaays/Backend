@@ -82,7 +82,7 @@ default_sql_port = 3306
 4. get All Data from table **(GET Method)**
 ```json
   {
-    "action":"select_all",
+      "action":"select_all",
       "table_s": "Hotel|Room|RoomType|Facilities",
       "conditions_as": [
           "id=1001", "id=1002"
@@ -93,7 +93,7 @@ default_sql_port = 3306
 5. get some column **(GET Method)**
 ```json
   {
-    "action":"select",
+      "action":"select",
       "table_s": "Hotel|Room|RoomType|Facilities",
       "columns_as": [
           "name", "description"
@@ -101,6 +101,19 @@ default_sql_port = 3306
       "conditions_as": [
           "id=1001"
       ]
+  }
+```
+
+6. booking room **(POST Method)**
+```json
+  {
+      "action":"booking",
+      "email_s":"email",
+      "password":"md5 encryption",
+      "room_id_i":1001,
+      "night_i":1,
+      "check_in_s":"date",
+      "check_out_s":"date"
   }
 ```
 
