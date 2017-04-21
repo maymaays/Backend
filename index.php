@@ -79,6 +79,8 @@ switch ($action) {
     case "search_customer":
         echo search_customer($raw_array[0], $raw_array[1]);
         break;
+    case "booking":
+
 }
 
 ?>
