@@ -33,6 +33,7 @@ function failureToJSON($description = "Some error occurred.")
 }
 
 /**
+ * if pass string meaning fail.
  * @param mysqli_result|bool|string $result
  * @return string json of data
  */

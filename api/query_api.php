@@ -123,15 +123,36 @@ function update_customer($email, $pass, array $sets)
     return update("CustomerDetail", $sets, "customerID=" . $json['customerID']);
 }
 
+function booking($email, $pass, $night, $in, $out, $roomID)
+{
+    // not implement yet!
+}
+
+/**
+ * get id of email and password
+ * @param $email
+ * @param $pass
+ * @return null|int|string null=>doesn't have id for this email&password, int=>id of email&password, string=>cause error (json format)
+ */
+function get_customer_id($email, $pass)
+{
+    $json = selectAll("CustomerDetail", array("email='" . $email . "'", "password='" . $pass . "'"));
+    $array = json_decode($json, true);
+    if ($array['success'] == "false")
+        return $json;
+    else
+        return array_key_exists("customerID", $array) ? $array['customerID'] : null;
+}
+
 function search_customer(string $email, string $password)
 {
-    $json = selectAll("CustomerDetail", array("email='" . $email . "'", "password='" . $password . "'"));
+    $result = get_customer_id($email, $password);
+    if (!is_string($result)) return $result;
+    // else if (!isset($result)) return toJSON(true, array("customerID" => "Not found")); // search and nothing found
+    return $result;
+}
 
-    $array = json_decode($json, true);
-    if (array_key_exists("customerID", $array)) return failureToJSON($array['failure']);
-
-    // fail when searching and nothing found
-    // $id = $array['customerID'];
-    // if (!isset($id) or is_bool($id)) return failureToJSON("customer not found.");
-    return $json;
+function searchRoom()
+{
+    // not implement yet!
 }
