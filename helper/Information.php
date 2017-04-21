@@ -14,6 +14,26 @@ class Information
     const encrypt = "encrypt";
     const unknown = "unknown";
 
+    const GET = "GET";
+    const POST = "POST";
+
+    const TABLE = "table_s";
+    const COLUMN = "columns_as";
+    const CONDITION = "conditions_as";
+    const FIRST_NAME = "first_s";
+    const LAST_NAME = "last_s";
+    const FIELD = "fields_a";
+    const NEW_VALUE = "new_values_a";
+    const ADDRESS = "address_s";
+    const EMAIL = "email_s";
+    const NIGHT = "night_i";
+    const CHECK_IN = "check_in_s";
+    const CHECK_OUT = "check_out_s";
+
+    const ROOM_ID = "room_id_i";
+
+    const PASSWORD = "password";
+
     /**
      * First element is expected/required method, and other is all key that should pass with action.
      * @param $action
@@ -23,20 +43,22 @@ class Information
     {
         switch ($action) {
             case "select":
-                return array("GET", "table_s", "columns_as", "conditions_as");
+                return array(Information::GET, Information::TABLE, Information::COLUMN, Information::CONDITION);
                 break;
             case "select_all":
-                return array("GET", "table_s", "conditions_as");
+                return array(Information::GET, Information::TABLE, Information::CONDITION);
                 break;
             case "insert_customer":
-                return array("POST", "first_s", "last_s", "address_s", "email_s", "password");
+                return array(Information::POST, Information::FIRST_NAME, Information::LAST_NAME, Information::ADDRESS, Information::EMAIL, Information::PASSWORD);
                 break;
             case "update_customer":
-                return array("POST", "fields_a", "new_values_a", "email_s", "password");
+                return array(Information::POST, Information::FIELD, Information::NEW_VALUE, Information::EMAIL, Information::PASSWORD);
                 break;
             case "search_customer":
-                return array("POST", "email_s", "password");
+                return array(Information::POST, Information::EMAIL, Information::PASSWORD);
                 break;
+            case "booking":
+                return array(Information::POST, Information::EMAIL, Information::PASSWORD, Information::ROOM_ID, Information::NIGHT, Information::CHECK_IN, Information::CHECK_OUT);
             default:
                 http_response_code(501);
                 die(failureToJSON($action . " isn't implementation yet!"));
