@@ -36,14 +36,51 @@ default_sql_port = 3306
 4. main php is name: [senter.php](index.php) @Deprecated because security problem
 
 # To connection
-> on development
+The example will using `Ajax` in `jquery` to connect the server
+The request link is `api.kamontat.me` and the example is below (the number in code meaning link below)
+```javascript
+var request = $.ajax({
+    method: "GET|POST",
+    url: "api.kamontat.me",
+    // async: false, // make web freeze when loading data
+    contentType: "application/json",
+    dataType: "json",
+    data: {
+        "action": "XXXXX", 
+        "": ""
+    } // learn more (2)
+}); // learn more parameter (3)
+
+// complete
+// response: return from object, In this case will be JSON Object
+// status: `success` string (I think)
+// xhr: debug object, contains all information of this request
+request.done(function (response, status, xhr) {
+    // do something when request successfully
+});
+
+// failure
+// xhr: debug object, contains all information of this request
+//      EX: xhr.responseText = response in `done` method
+//      EX: xhr.status: it's http status code (learn more (1))
+// status: `error` string (I think)
+// error: string why error and http status code (learn more (1))
+request.fail(function (xhr, status, error) {
+    // do something when resuest failture
+});
+```
+
+1. [http status code](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes)
+2. [JSON Format](#json-format)
+3. [Ajax](http://api.jquery.com/jquery.ajax/)
+
 
 ------
 
 # json format
 
 ### Input (case-sensitive, need `'` when input is string/text)
-1. Insert Customer **(POST Method)**
+- [X] Insert Customer **(POST Method)**
  ```json
  {
      "action":"insert_customer",
@@ -55,7 +92,7 @@ default_sql_port = 3306
  }
  ```
  
-2. Update Customer **(POST Method)**
+- [X] Update Customer **(POST Method)**
   ```json
   {
       "action":"update_customer",
@@ -70,7 +107,7 @@ default_sql_port = 3306
   }
   ```
   
-3. Search Customer by password **(POST Method)**
+- [X] Search Customer by password **(POST Method)**
 ```json
   {
       "action":"search_customer",
@@ -79,7 +116,7 @@ default_sql_port = 3306
   }
 ```
 
-4. get All Data from table **(GET Method)**
+- [X] get All Data from table **(GET Method)**
 ```json
   {
       "action":"select_all",
@@ -90,7 +127,7 @@ default_sql_port = 3306
   }
 ```
 
-5. get some column **(GET Method)**
+- [X] get some column **(GET Method)**
 ```json
   {
       "action":"select",
@@ -104,7 +141,7 @@ default_sql_port = 3306
   }
 ```
 
-6. booking room **(POST Method)**
+- [ ] booking room **(POST Method)**
 ```json
   {
       "action":"booking",
@@ -116,6 +153,13 @@ default_sql_port = 3306
       "check_out_s":"date"
   }
 ```
+
+- [ ] delete customer **(POST Method)**
+
+- [ ] filter rooms **(GET Method)**
+
+- [ ] cancel room **(POST Method)**
+
 
 ### Output
 1. success
@@ -137,10 +181,7 @@ default_sql_port = 3306
 
 
 # Example
-1. [test/](test) folder - connect front and backend
-    1. [index.html](test/index.html) - example frontend usage
-    2. [data_testing.php](test/data_testing.php) - example http `GET` method
-2. [tester/](tester) - api/http method tester
+On branch `tester`
 
 # Credit
 - reader markdown in `index.html` by `display-markdown` ([link](https://github.com/sawmac/display-markdown))
