@@ -38,8 +38,8 @@ class DatabaseModel
         }
 
         $this->database = mysqli_connect($ini_array['local_host'], $ini_array['database_manager'], $ini_array['database_password'], $ini_array['database_name']);
-        if (mysqli_connect_errno()) die("to connect to MySQL: " . mysqli_connect_error());
-        if (!isset($this->database)) die("Not database created.");
+        if (mysqli_connect_errno()) die(failureToJSON("to connect to MySQL: " . mysqli_connect_error()));
+        if (!isset($this->database)) die(failureToJSON("Not database created."));
     }
 
     /**
@@ -60,7 +60,7 @@ class DatabaseModel
         mysqli_set_charset($this->database, 'utf8');
         if ($result = $this->database->query($q)) {
             if (is_bool($result) and $result === false) {
-                return failureToJSON($this->database->error);
+                return failureToJSON($this->database->error . ", query: " . $q);
             } else {
                 return sqlToJSON($result);
             }
