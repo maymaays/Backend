@@ -38,8 +38,9 @@ default_sql_port = 3306
 # To connection
 
 ```diff
-- Warning: If the query require `'` you must add in the request too.
+- Warning: If the query require ' you must add in the request too.
 ```
+
 The example will using `Ajax` in `jquery` to connect the server
 The request link is `api.kamontat.me` and the example is below (the number in code meaning link below)
 
