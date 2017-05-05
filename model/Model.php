@@ -65,7 +65,7 @@ class DatabaseModel
                 return sqlToJSON($result);
             }
         } else
-            return failureToJSON($this->database->error);
+            return failureToJSON($this->database->error . ", query: " . $q);
     }
 
     /**
