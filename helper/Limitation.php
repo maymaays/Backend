@@ -52,7 +52,7 @@ class Limitation
                 $str .= "`" . $req . "`" . " ";
             }
         }
-        return $error ? $str . " is required for " . $actual['action'] . " action" : false;
+        return $error ? $str . " is required for '" . $actual['action'] . "' action" : false;
     }
 
     /**
