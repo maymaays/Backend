@@ -1,7 +1,6 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kamontat
+ * User: Kamontat Chantrachirathumrong
  * Date: 4/8/2017 AD
  * Time: 4:16 PM
  */
@@ -11,10 +10,16 @@ include "api/method_api.php";
 include "helper/Limitation.php";
 include "helper/Information.php";
 
+/* ------------------------------------------------------------------------------------ */
+// Http Setting Section
+/* ------------------------------------------------------------------------------------ */
+
 // http response code: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 header('Content-Type: application/json');
 
-/*  */
+/* ------------------------------------------------------------------------------------ */
+// Server Setting Section
+/* ------------------------------------------------------------------------------------ */
 
 // print_r($_SERVER); // debug tool
 $method = $_SERVER['REQUEST_METHOD'];
@@ -32,6 +37,10 @@ if (count($actual_array) == 0 or count($actual_array) == 1) {
     die(failureToJSON("If you don't know how to use this api, go to https://api.kamontat.me/docs to learn it."));
 }
 
+/* ------------------------------------------------------------------------------------ */
+// Action searching Section
+/* ------------------------------------------------------------------------------------ */
+
 // print_r($input); // debug tool
 
 if (!isset($actual_array['action'])) {
@@ -42,21 +51,31 @@ if (!isset($actual_array['action'])) {
 $action = $actual_array['action'];
 $expected_array = Information::get_required_key($action);
 
+/* ------------------------------------------------------------------------------------ */
+// Method allow Section
+/* ------------------------------------------------------------------------------------ */
+
 // first element of get_required_parameter() is expected method
 if (array_shift($expected_array) != $method) {
     http_response_code(405);
     die($action . " not allow to sent by " . $method . " method.");
 }
 
-// debug tool
-// print_r($expected_array);
-// print_r($actual_array);
+/* ------------------------------------------------------------------------------------ */
+// Condition Configuration Section
+/* ------------------------------------------------------------------------------------ */
 
 // insert ' to condition, if condition exist
 if (key_exists(Information::CONDITION, $actual_array))
     $actual_array[Information::CONDITION] = convert_condition($actual_array[Information::CONDITION]);
 
-// print_r($actual_array); // debug tool
+/* ------------------------------------------------------------------------------------ */
+// Data Management Section
+/* ------------------------------------------------------------------------------------ */
+
+// debug tool
+// print_r($expected_array);
+// print_r($actual_array);
 
 $str = Limitation::is_required($method, $expected_array, $actual_array);
 if (is_string($str)) {
@@ -67,8 +86,11 @@ if (is_string($str)) {
 // get result array (key and value)
 $result_array = fetch_required_to_array($expected_array, $actual_array);
 
-// print_r($result_array);
+/* ------------------------------------------------------------------------------------ */
+// query Section
+/* ------------------------------------------------------------------------------------ */
 
+// print_r($result_array);
 switch ($action) {
     case "select":
         echo select($result_array[Information::TABLE], $result_array[Information::COLUMN], $result_array[Information::CONDITION]);
