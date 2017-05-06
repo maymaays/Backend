@@ -86,7 +86,7 @@ function fetch_required_to_array(array $expected_key, array $actual)
             die(failureToJSON($item . " must be " . convert_array(Information::get_class_of($item), ", ") . " type."));
 
         }
-        $arr[] = $actual[$item];
+        $arr[$item] = $actual[$item];
     }
     // array_shift($arr); // avoid empty element at first
     return $arr;
@@ -121,10 +121,9 @@ function merge_array($arr1, $arr2)
 function convert_condition($conditions = "")
 {
     // if not set or empty
-    if (isset($conditions) or $conditions === "") return "";
+    if (!isset($conditions) or $conditions === "") return "";
     if (is_string($conditions))
         $conditions = string_to_array($conditions);
-
     $results = [];
     foreach ($conditions as $value) {
         $strings = explode("=", $value); // split
@@ -137,8 +136,8 @@ function convert_condition($conditions = "")
 
 /**
  * change string to array
- * @param $str
- * @return array
+ * @param string $str
+ * @return array array
  */
 function string_to_array($str)
 {
