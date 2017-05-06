@@ -201,4 +201,5 @@ request.fail(function (xhr, status, error) {
 On branch `tester`
 
 # Credit
-- reader markdown in `index.html` by `display-markdown` ([link](https://github.com/sawmac/display-markdown))
+1. Kamontat Chantrachirathumrong
+2. Render markdown to html in `index.html` by [`display-markdown`](https://github.com/sawmac/display-markdown)
