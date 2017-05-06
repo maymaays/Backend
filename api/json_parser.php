@@ -16,7 +16,8 @@ function toJSON(bool $success, array $array = null /* mapping array */)
     $array_success = array('success' => $success ? "true" : "false");
     if (isset($array)) {
         $result = array_merge($array_success, $array);
-        return json_encode($result, JSON_PRETTY_PRINT);
+
+        return str_replace("\\", "", json_encode($result, JSON_PRETTY_PRINT)); // remove \
     } else {
         return json_encode($array_success, JSON_PRETTY_PRINT);
     }
