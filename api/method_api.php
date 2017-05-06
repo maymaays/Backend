@@ -112,3 +112,35 @@ function merge_array($arr1, $arr2)
         return null;
     }
 }
+
+/**
+ * change condition to normal format
+ * @param array|string $conditions query condition (the text after WHERE)
+ * @return string
+ */
+function convert_condition($conditions = "")
+{
+    // if not set or empty
+    if (isset($conditions) or $conditions === "") return "";
+    if (is_string($conditions))
+        $conditions = string_to_array($conditions);
+
+    $results = [];
+    foreach ($conditions as $value) {
+        $strings = explode("=", $value); // split
+        $strings[1] = "'" . $strings[1] . "'"; // add quote
+        $results[] = implode("=", $strings); // merge
+    }
+    $result = convert_array($results, " AND ");
+    return $result;
+}
+
+/**
+ * change string to array
+ * @param $str
+ * @return array
+ */
+function string_to_array($str)
+{
+    return [$str];
+}
