@@ -34,20 +34,16 @@ function select($table, $col, $conditions = "")
     $columns = array();
     if (is_string($col)) $columns = array($col);
     else $columns = $col;
-
     $col_str = convert_array($columns, ", ");
+
     if (!isset($col_str)) return failureToJSON("No column(s) specific.");
 
-    if (!isset($conditions)) return connect()->queryJSON("SELECT " . $col_str . " FROM " . $table);
+    if (!isset($conditions) or $conditions === "") return connect()->queryJSON("SELECT " . $col_str . " FROM " . $table);
     $condition_str = "";
     if (is_array($conditions))
         $condition_str = convert_array($conditions, " AND ");
     else if (is_string($conditions))
         $condition_str = $conditions;
-
-    if ($condition_str === "")
-        return connect()->queryJSON("SELECT " . $col_str . " FROM " . $table);
-
     return connect()->queryJSON("SELECT " . $col_str . " FROM " . $table . " WHERE " . $condition_str);
 }
 
@@ -108,6 +104,21 @@ function update($table, array $sets, $conditions = "")
         return connect()->queryJSON("UPDATE " . $table . " SET " . $set_str);
 
     return connect()->queryJSON("UPDATE " . $table . " SET " . $set_str . " WHERE " . $condition_str);
+}
+
+function delete($table, string $condition = "")
+{
+    if (!isset($condition) or $condition === "") return delete_all($table);
+    if (!Limitation::delete($table)) return failureToJSON($table . " can't delete");
+
+    return connect()->queryJSON("DELETE FROM " . $table . " WHERE " . $condition);
+}
+
+function delete_all($table)
+{
+    if (!Limitation::delete_all($table)) return failureToJSON($table . " can't delete all");
+
+    return connect()->queryJSON("DELETE FROM " . $table);
 }
 
 // new implementation
