@@ -32,8 +32,8 @@ default_sql_port = 3306
     - json_parser.php - contains parse `query result` to `json`
     - query_api.php - contains provide query method
 2. [model](model) folder - contains `database` connection
-3. [test](test) folder - contains example usage, how to write the frontend and more...
-4. main php is name: [senter.php](index.php) @Deprecated because security problem
+3. [helper](helper) folder - contains `condition` of each request method 
+4. main php is name: [senter.php](index.php) **@deprecated** because security problem
 
 # To connection
 The example will using `Ajax` in `jquery` to connect the server
@@ -41,9 +41,8 @@ The request link is `api.kamontat.me` and the example is below (the number in co
 ```javascript
 var request = $.ajax({
     method: "GET|POST",
-    url: "api.kamontat.me",
+    url: "https://api.kamontat.me",
     // async: false, // make web freeze when loading data
-    contentType: "application/json",
     dataType: "json",
     data: {
         "action": "XXXXX", 
@@ -78,8 +77,8 @@ request.fail(function (xhr, status, error) {
 ------
 
 # json format
+> For requesting you may need to insert `'` when the value is string
 
-### Input (case-sensitive, need `'` when input is string/text)
 - [X] Insert Customer **(POST Method)**
  ```json
  {
@@ -142,11 +141,23 @@ request.fail(function (xhr, status, error) {
 ```
 
 - [ ] booking room **(POST Method)**
+1. v1
 ```json
   {
       "action":"booking",
       "email_s":"email",
       "password":"md5 encryption",
+      "room_id_i":1001,
+      "night_i":1,
+      "check_in_s":"date",
+      "check_out_s":"date"
+  }
+```
+2. v2
+```json
+  {
+      "action":"booking",
+      "customer_id_i": -1,
       "room_id_i":1001,
       "night_i":1,
       "check_in_s":"date",
