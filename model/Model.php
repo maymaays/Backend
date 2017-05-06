@@ -72,7 +72,7 @@ class DatabaseModel
      * @param $table string input table
      * @return array|string array if had column in table, otherwise, return string description
      */
-    public function getColumns($table)
+    public function get_columns($table)
     {
         $json = $this->queryJSON("SHOW COLUMNS FROM " . $table);
         $json_array = json_decode($json, true);

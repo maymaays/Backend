@@ -69,7 +69,7 @@ function selectAll($table, $conditions = "")
  */
 function insert($table, array $values)
 {
-    $cols = connect()->getColumns($table);
+    $cols = connect()->get_columns($table);
     if (is_string($cols)) return failureToJSON($table . " with error " . $cols);
     else {
         $str_head_col = convert_array($cols, ", ", " (", ")");
