@@ -39,6 +39,7 @@ default_sql_port = 3306
 # To connection
 
 ```diff
++ Implement auto insert `'` already!
 - Warning: If the query require ' you must add in the request too.
 ```
 
@@ -84,9 +85,6 @@ request.fail(function (xhr, status, error) {
 ------
 
 # json format
-> Implement auto insert `'` already!  
-> For requesting you may need to insert `'` when the value is string 
-
 - [X] Insert Customer **(POST Method)**
  ```json
  {
