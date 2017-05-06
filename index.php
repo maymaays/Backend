@@ -72,6 +72,7 @@ switch ($action) {
         break;
     case "insert_customer":
         echo insert_customer($raw_array);
+        http_response_code(201); // created
         break;
     case "update_customer":
         echo update_customer($raw_array[2], $raw_array[3], merge_array($raw_array[0], $raw_array[1]));
@@ -80,7 +81,7 @@ switch ($action) {
         echo search_customer($raw_array[0], $raw_array[1]);
         break;
     case "booking":
-
+        
 }
 
 ?>
