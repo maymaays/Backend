@@ -36,8 +36,14 @@ default_sql_port = 3306
 4. main php is name: [senter.php](index.php) **@deprecated** because security problem
 
 # To connection
+
+```diff
+- Warning: If the query require ' you must add in the request too.
+```
+
 The example will using `Ajax` in `jquery` to connect the server
 The request link is `api.kamontat.me` and the example is below (the number in code meaning link below)
+
 ```javascript
 var request = $.ajax({
     method: "GET|POST",
