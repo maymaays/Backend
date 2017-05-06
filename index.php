@@ -99,8 +99,10 @@ switch ($action) {
         echo selectAll($result_array[Information::TABLE], $result_array[Information::CONDITION]);
         break;
     case "insert_customer":
-        echo insert_customer($result_array);
-        http_response_code(201); // created
+        $result = insert_customer($result_array);
+        if (json_decode($result)->{"successful"} === "true")
+            http_response_code(201); // created
+        return $result;
         break;
     case "update_customer":
         echo update_customer($result_array[Information::EMAIL], $result_array[Information::PASSWORD], merge_array($result_array[Information::FIELD], $result_array[Information::NEW_VALUE]));
