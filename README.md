@@ -77,7 +77,8 @@ request.fail(function (xhr, status, error) {
 ------
 
 # json format
-> For requesting you may need to insert `'` when the value is string
+> Implement auto insert `'` already!  
+> For requesting you may need to insert `'` when the value is string 
 
 - [X] Insert Customer **(POST Method)**
  ```json

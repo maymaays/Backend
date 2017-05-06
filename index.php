@@ -14,10 +14,7 @@ include "helper/Information.php";
 // http response code: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 header('Content-Type: application/json');
 
-// $select = "SELECT * FROM test WHERE id=0";
-// $insert = "INSERT INTO test (id, name, surname) VALUES (0, 'new', 'sur')";
-// $delete = "DELETE FROM `test` WHERE name='new'";
-// $update = "UPDATE test SET surname='new_sur' WHERE name='new'";
+/*  */
 
 // print_r($_SERVER); // debug tool
 $method = $_SERVER['REQUEST_METHOD'];
@@ -51,37 +48,46 @@ if (array_shift($expected_array) != $method) {
     die($action . " not allow to sent by " . $method . " method.");
 }
 
+// debug tool
+// print_r($expected_array);
+// print_r($actual_array);
+
+// insert ' to condition, if condition exist
+if (key_exists(Information::CONDITION, $actual_array))
+    $actual_array[Information::CONDITION] = convert_condition($actual_array[Information::CONDITION]);
+
+// print_r($actual_array); // debug tool
+
 $str = Limitation::is_required($method, $expected_array, $actual_array);
 if (is_string($str)) {
     http_response_code(400);
     die(failureToJSON($str));
 }
 
-// debug tool
-// print_r($expected_array);
-// print_r($actual_array);
+// get result array (key and value)
+$result_array = fetch_required_to_array($expected_array, $actual_array);
 
-$raw_array = fetch_required_to_array($expected_array, $actual_array);
+// print_r($result_array);
 
 switch ($action) {
     case "select":
-        echo select($raw_array[0], $raw_array[1], $raw_array[2]);
+        echo select($result_array[Information::TABLE], $result_array[Information::COLUMN], $result_array[Information::CONDITION]);
         break;
     case "select_all":
-        echo selectAll($raw_array[0], $raw_array[1]);
+        echo selectAll($result_array[Information::TABLE], $result_array[Information::CONDITION]);
         break;
     case "insert_customer":
-        echo insert_customer($raw_array);
+        echo insert_customer($result_array);
         http_response_code(201); // created
         break;
     case "update_customer":
-        echo update_customer($raw_array[2], $raw_array[3], merge_array($raw_array[0], $raw_array[1]));
+        echo update_customer($result_array[Information::EMAIL], $result_array[Information::PASSWORD], merge_array($result_array[Information::FIELD], $result_array[Information::NEW_VALUE]));
         break;
     case "search_customer":
-        echo search_customer($raw_array[0], $raw_array[1]);
+        echo search_customer($result_array[Information::EMAIL], $result_array[Information::PASSWORD]);
         break;
     case "booking":
-        
+
 }
 
 ?>
