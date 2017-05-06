@@ -21,7 +21,12 @@ header('Content-Type: application/json');
 // Server Setting Section
 /* ------------------------------------------------------------------------------------ */
 
-// print_r($_SERVER); // debug tool
+// debug tool
+// print_r($_SERVER);    // server information
+// print_r($_REQUEST);   // request array (contains every thing that pass to server)
+// print_r($_GET);       // parameter of get method
+// print_r($_POST);      // body of post method
+
 $method = $_SERVER['REQUEST_METHOD'];
 $actual_array = [];
 if ($method == 'GET') {
@@ -33,7 +38,7 @@ if ($method == 'GET') {
     die(failureToJSON($method . " not allow"));
 }
 
-if (count($actual_array) == 0 or count($actual_array) == 1) {
+if (count($actual_array) == 0) {
     die(failureToJSON("If you don't know how to use this api, go to https://api.kamontat.me/docs to learn it."));
 }
 
@@ -41,7 +46,7 @@ if (count($actual_array) == 0 or count($actual_array) == 1) {
 // Action searching Section
 /* ------------------------------------------------------------------------------------ */
 
-// print_r($input); // debug tool
+// print_r($actual_array); // debug tool
 
 if (!isset($actual_array['action'])) {
     http_response_code(400);
