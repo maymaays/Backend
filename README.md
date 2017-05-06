@@ -34,6 +34,7 @@ default_sql_port = 3306
 2. [model](model) folder - contains `database` connection
 3. [helper](helper) folder - contains `condition` of each request method 
 4. main php is name: [senter.php](index.php) **@deprecated** because security problem
+5. local running by `php -S localhost:XXXX` when XXXX is running port 
 
 # To connection
 
