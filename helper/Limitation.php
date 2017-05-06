@@ -23,6 +23,20 @@ class Limitation
     }
 
     /**
+     * @param string $table
+     * @return bool true if table allow to deleted
+     */
+    public static function delete($table)
+    {
+        return $table === "CustomerDetail";
+    }
+
+    public static function delete_all($table)
+    {
+        return false; // disable delete all feature
+    }
+
+    /**
      * @param string $method 'GET', 'POST', etc
      * @param array $expected get from Information::get_required_parameter() method
      * @param array $actual get from $_GET, $_POST etc.
@@ -38,7 +52,6 @@ class Limitation
                 $str .= "`" . $req . "`" . " ";
             }
         }
-
         return $error ? $str . " is required for " . $actual['action'] . " action" : false;
     }
 
@@ -53,9 +66,9 @@ class Limitation
         $classes = Information::get_class_of($key);
         $check = false;
 
-        if (in_array(Information::array, $classes))   $check = ($check or is_array($value));
-        if (in_array(Information::string, $classes))  $check = ($check or is_string($value));
-        if (in_array(Information::int, $classes))     $check = ($check or is_numeric($value));
+        if (in_array(Information::array, $classes)) $check = ($check or is_array($value));
+        if (in_array(Information::string, $classes)) $check = ($check or is_string($value));
+        if (in_array(Information::int, $classes)) $check = ($check or is_numeric($value));
         if (in_array(Information::encrypt, $classes)) $check = ($check or is_string($value)); // maybe something else
         if (in_array(Information::unknown, $classes)) $check = false;
         return $check;
