@@ -72,8 +72,9 @@ function insert($table, array $values)
     $cols = connect()->get_columns($table);
     if (is_string($cols)) return failureToJSON($table . " with error " . $cols);
     else {
+        array_shift($cols); // delete id of customer
         $str_head_col = convert_array($cols, ", ", " (", ")");
-        $str_value_col = convert_array($values, ", ", "(", ")");
+        $str_value_col = convert_array($values, "', '", "('", "')");
         if (!isset($str_head_col) or !isset($str_value_col)) return failureToJSON("Don't have insert head(s) or value(s)");
         return connect()->queryJSON("INSERT INTO " . $table . $str_head_col . " VALUES " . $str_value_col);
     }

@@ -105,9 +105,9 @@ switch ($action) {
         break;
     case "insert_customer":
         $result = insert_customer($result_array);
-        if (json_decode($result)->{"successful"} === "true")
+        if (json_decode($result)->{"success"} === "true")
             http_response_code(201); // created
-        return $result;
+        echo $result;
         break;
     case "update_customer":
         echo update_customer($result_array[Information::EMAIL], $result_array[Information::PASSWORD], merge_array($result_array[Information::FIELD], $result_array[Information::NEW_VALUE]));
