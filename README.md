@@ -171,6 +171,15 @@ request.fail(function (xhr, status, error) {
   }
 ```
 
+- [ ] login (get_customer_id) **(POST Method)**
+```json
+  {
+      "action":"login",
+      "email_s":"email",
+      "password":"md5 encryption"
+  }
+```
+
 - [ ] delete customer **(POST Method)**
 
 - [ ] filter rooms **(GET Method)**
