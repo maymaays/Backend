@@ -15,6 +15,7 @@ include "helper/Information.php";
 /* ------------------------------------------------------------------------------------ */
 
 // http response code: https://en.wikipedia.org/wiki/List_of_HTTP_status_codes
+header('Access-Control-Allow-Origin: *'); // bad security
 header('Content-Type: application/json');
 
 /* ------------------------------------------------------------------------------------ */
