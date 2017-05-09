@@ -45,7 +45,10 @@ function sqlToJSON($result)
     } else if (is_object($result)) {
         $array = to_array($result);
         $result->free();
-        return toJSON(isset($array), $array);
+        if (!isset($array) or count($array) <= 0) // when array empty or null
+            return failureToJSON("Result not found.");
+        else
+            return toJSON(true, $array);
     } else {
         return toJSON($result);
     }
