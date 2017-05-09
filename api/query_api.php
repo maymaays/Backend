@@ -65,14 +65,16 @@ function selectAll($table, $conditions = "")
  * insert new data/row to table
  * @param $table
  * @param array $values insert value (no need to map but sequential must like table)
+ * @param int $offset column offset
  * @return string json
  */
-function insert($table, array $values)
+function insert($table, array $values, $offset = 0)
 {
     $cols = connect()->get_columns($table);
     if (is_string($cols)) return failureToJSON($table . " with error " . $cols);
     else {
-        array_shift($cols); // delete id of customer
+        for ($i = 0; $i < $offset; $i++)
+            array_shift($cols);
         $str_head_col = convert_array($cols, ", ", " (", ")");
         $str_value_col = convert_array($values, "', '", "('", "')");
         if (!isset($str_head_col) or !isset($str_value_col)) return failureToJSON("Don't have insert head(s) or value(s)");
@@ -123,20 +125,20 @@ function delete_all($table)
 
 // new implementation
 
+function booking($email, $pass, $night, $in, $out, $roomID)
+{
+    // not implement yet!
+}
+
 function insert_customer(array $new_values)
 {
-    return insert("CustomerDetail", $new_values);
+    return insert("CustomerDetail", $new_values, 1); // offset id out.
 }
 
 function update_customer($email, $pass, array $sets)
 {
     $json = json_decode(search_customer($email, $pass), true);
     return update("CustomerDetail", $sets, "customerID=" . $json['customerID']);
-}
-
-function booking($email, $pass, $night, $in, $out, $roomID)
-{
-    // not implement yet!
 }
 
 /**
@@ -147,12 +149,8 @@ function booking($email, $pass, $night, $in, $out, $roomID)
  */
 function get_customer_id($email, $pass)
 {
-    $json = selectAll("CustomerDetail", array("email='" . $email . "'", "password='" . $pass . "'"));
-    $array = json_decode($json, true);
-    if ($array['success'] == "false")
-        return $json;
-    else
-        return array_key_exists("customerID", $array) ? $array['customerID'] : null;
+    // select only customer_id
+    return select("CustomerDetail", "CustomerID", array("email='" . $email . "'", "password='" . $pass . "'"));
 }
 
 function search_customer(string $email, string $password)
