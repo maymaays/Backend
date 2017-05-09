@@ -171,7 +171,7 @@ request.fail(function (xhr, status, error) {
   }
 ```
 
-- [ ] login (get_customer_id) **(POST Method)**
+- [X] login (get_customer_id) **(POST Method)**
 ```json
   {
       "action":"login",
