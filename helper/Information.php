@@ -59,6 +59,8 @@ class Information
                 break;
             case "booking":
                 return array(Information::POST, Information::EMAIL, Information::PASSWORD, Information::ROOM_ID, Information::NIGHT, Information::CHECK_IN, Information::CHECK_OUT);
+            case "login":
+                return array(Information::POST, Information::EMAIL, Information::PASSWORD);
             default:
                 http_response_code(501);
                 die(failureToJSON($action . " isn't implementation yet!"));
